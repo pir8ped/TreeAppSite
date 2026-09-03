@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <View
+        android:layout_width="32dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/btn_change_species"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Species"
+        android:layout_marginBottom="8dp"/>
+
+    <Button
+        android:id="@+id/btn_view_species_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Species Details"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+</LinearLayout> 

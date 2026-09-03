@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- A simple layout for editing the tree, e.g. a form -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Add your form elements here, e.g., EditTexts, Buttons -->
+        <EditText
+            android:id="@+id/et_tree_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tree Label" />
+
+        <!-- More fields as required... -->
+
+        <Button
+            android:id="@+id/btn_save_tree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Changes" />
+    </LinearLayout>
+</ScrollView>

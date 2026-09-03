@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tree to plant"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:paddingBottom="16dp"/>
+
+        <TextView
+            android:text="English Name:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/text_english_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EFEFEF"
+            android:padding="8dp"/>
+
+        <TextView
+            android:text="Latin Name:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/text_latin_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EFEFEF"
+            android:padding="8dp"/>
+
+        <TextView
+            android:text="Characteristics:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/text_Characteristics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EFEFEF"
+            android:padding="8dp"/>
+
+        <TextView
+            android:text="Origin (optional):"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edit_origin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter origin"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:text="Rootstock (optional):"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edit_rootstock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter rootstock"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:text="Variety (optional):"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edit_variety"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter variety"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:text="Location (optional):"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edit_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter location"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:text="Quantity:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edit_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter quantity"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:text="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="16dp">
+
+            <Button
+                android:id="@+id/button_plant_later"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plant Later"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/button_plant_now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plant Now"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

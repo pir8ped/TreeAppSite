@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Collection Management Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/section_background">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Collection Management"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/currentCollectionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Current Collection: Default"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@android:color/black"/>
+
+        <!-- Statistics Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/treeStatusStatsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verified: 0  Unverified: 0  Lost: 0"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/speciesStatsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Species: 0"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/changeCollectionButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="Change Collection"/>
+
+            <Button
+                android:id="@+id/deleteCollectionButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="Delete Collection"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/newCollectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Create New Collection"/>
+
+        <Button
+            android:id="@+id/backupCollectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Backup Photos &amp; Captions"
+            android:backgroundTint="@color/design_default_color_primary_variant"/>
+
+    </LinearLayout>
+
+</LinearLayout>

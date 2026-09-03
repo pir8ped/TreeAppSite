@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollViewFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Label Field -->
+        <TextView
+            android:id="@+id/labelTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Label"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter label"
+            android:minHeight="48dp" />
+
+        <!-- English Name Field -->
+        <TextView
+            android:id="@+id/englishNameTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name - English"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/editEnglishName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="English name"
+            android:minHeight="48dp" />
+
+        <!-- Latin Name Field (display only) -->
+        <TextView
+            android:id="@+id/latinNameTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name - Latin"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/textLatinName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Latin name" />
+
+        <!-- Rootstock Field -->
+        <TextView
+            android:id="@+id/rootstockTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rootstock"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/editRootstock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter rootstock"
+            android:minHeight="48dp" />
+
+        <!-- Variety Field -->
+        <TextView
+            android:id="@+id/varietyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Variety"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/editVariety"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter variety"
+            android:minHeight="48dp" />
+
+    </LinearLayout>
+</ScrollView>

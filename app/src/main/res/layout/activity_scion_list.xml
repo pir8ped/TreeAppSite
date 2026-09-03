@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_scions"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:clipToPadding="false"/>
+
+    <Button
+        android:id="@+id/button_add_new_scion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add a new scion"
+        android:layout_margin="16dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/rounded_button"/>
+
+</LinearLayout>

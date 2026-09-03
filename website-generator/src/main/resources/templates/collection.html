@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Collection View</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            🌳 Tree Dashboard
+        </a>
+        <nav>
+            <a href="index.html">Dashboard</a>
+            <div class="dropdown">
+                <a href="#" class="active" th:text="${collection.name} + ' ▾'">Collection ▾</a>
+                <div class="dropdown-content">
+                    <a th:each="col : ${collections}"
+                       th:href="'collection_' + ${col.id} + '.html'"
+                       th:text="${col.name}">Collection Name</a>
+                </div>
+            </div>
+            <a href="species.html">Species & Fruiting</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <div class="page-header">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem;">
+            <h1 class="page-title" th:text="${collection.name}">Collection Name</h1>
+            <a href="index.html" style="color: var(--primary-color); font-weight: 600; text-decoration: none;">← Back to All Collections</a>
+        </div>
+        <p class="page-subtitle">Showing all planted trees in this collection.</p>
+    </div>
+
+    <!-- Collection Stats -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.totalCount}">0</span>
+            <span class="stat-label">Planted Trees</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.speciesCount}">0</span>
+            <span class="stat-label">Species</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.verifiedCount}">0</span>
+            <span class="stat-label">Verified</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.unverifiedCount}">0</span>
+            <span class="stat-label">Unverified</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.lostCount}">0</span>
+            <span class="stat-label">Lost</span>
+        </div>
+    </div>
+
+    <!-- Map View (Centered automatically on this Collection) -->
+    <div class="map-container">
+        <div class="map-header">
+            <span class="map-title" th:text="'🗺️ ' + ${collection.name} + ' Map'">Collection Map</span>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Satellite & Street View</span>
+        </div>
+        <div id="map"></div>
+    </div>
+
+    <!-- Filterable Trees Table -->
+    <div class="table-card">
+        <div class="table-header-controls">
+            <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary-dark);">Planted Trees</h2>
+            <input type="text" id="tableSearch" class="search-input" placeholder="🔍 Filter by Label, Species, Variety..." onkeyup="filterTable()">
+        </div>
+        <table id="treesTable">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Species</th>
+                    <th>Variety</th>
+                    <th>Rootstock</th>
+                    <th>Planted</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="tree : ${trees}">
+                    <td>
+                        <strong style="font-size: 1.05rem;" th:text="${tree.label != null and !tree.label.isEmpty()} ? ${tree.label} : '—'">T1</strong>
+                    </td>
+                    <td>
+                        <div th:text="${tree.displayName}">Apple</div>
+                        <div style="font-size: 0.85rem; font-style: italic; color: var(--text-muted);" th:text="${tree.latinName}">Malus domestica</div>
+                    </td>
+                    <td th:text="${tree.variety != null and !tree.variety.isEmpty()} ? ${tree.variety} : '—'">Bramley</td>
+                    <td th:text="${tree.rootstock != null and !tree.rootstock.isEmpty()} ? ${tree.rootstock} : '—'">M26</td>
+                    <td th:text="${tree.datePlanted != null} ? ${#dates.format(tree.datePlanted, 'MMM dd, yyyy')} : '—'">Apr 12, 2022</td>
+                    <td>
+                        <span th:class="'badge badge-' + ${#strings.toLowerCase(tree.status)}" th:text="${tree.status}">verified</span>
+                    </td>
+                    <td>
+                        <a th:href="'trees/tree_' + ${tree.treeId} + '.html'" style="color: var(--primary-color); font-weight: 600; text-decoration: none;">View Details →</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <p>Tree Collection Archive &bull; Non-editable snapshot generated from TreeApp &bull; Powered by Leaflet & SQLite</p>
+</footer>
+
+<script th:inline="javascript">
+    const trees = /*[[${treesJson}]]*/ '[]';
+    const parsedTrees = JSON.parse(trees);
+
+    // Initialize Leaflet Map
+    const map = L.map('map');
+
+    // Base Layers
+    const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        attribution: '&copy; OpenStreetMap contributors'
+    });
+
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 20,
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    satelliteLayer.addTo(map);
+
+    const baseMaps = {
+        "Satellite": satelliteLayer,
+        "Street Map": streetLayer
+    };
+    L.control.layers(baseMaps).addTo(map);
+
+    // Add Tree Markers and Center Map on this Collection
+    if (parsedTrees && parsedTrees.length > 0) {
+        const bounds = [];
+        parsedTrees.forEach(t => {
+            if (t.latitude && t.longitude) {
+                bounds.push([t.latitude, t.longitude]);
+
+                const marker = L.circleMarker([t.latitude, t.longitude], {
+                    radius: 8,
+                    fillColor: t.colorHex || '#4CAF50',
+                    color: '#ffffff',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.95
+                }).addTo(map);
+
+                let popupContent = `
+                    <div class="tree-popup">
+                        <h4>${t.label || ''} ${t.englishName || t.latinName}</h4>
+                        <div class="latin">${t.latinName || ''}</div>
+                        ${t.variety ? `<div><strong>Variety:</strong> ${t.variety}</div>` : ''}
+                        ${t.rootstock ? `<div><strong>Rootstock:</strong> ${t.rootstock}</div>` : ''}
+                        <span class="badge badge-${(t.status || 'unverified').toLowerCase()}">${t.status || 'unverified'}</span><br>
+                        ${t.latestImagePath ? `<img src="images/${t.latestImagePath}" class="popup-thumb" alt="Tree photo" />` : ''}
+                        <a href="trees/tree_${t.id}.html" class="popup-link">View Tree Details & Gallery →</a>
+                    </div>
+                `;
+                marker.bindPopup(popupContent);
+            }
+        });
+
+        // Automatically frame and center the map around the current collection
+        if (bounds.length > 0) {
+            map.fitBounds(bounds, { padding: [50, 50], maxZoom: 19 });
+        }
+    } else {
+        map.setView([51.505, -0.09], 13);
+    }
+
+    // Filter table function
+    function filterTable() {
+        const input = document.getElementById("tableSearch");
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById("treesTable");
+        const tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+            let rowText = tr[i].textContent || tr[i].innerText;
+            if (rowText.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

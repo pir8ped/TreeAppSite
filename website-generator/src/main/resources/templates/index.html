@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Tree Collection Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            🌳 Tree Dashboard
+        </a>
+        <nav>
+            <a href="index.html" class="active">Dashboard</a>
+            <div class="dropdown">
+                <a href="#">Collections ▾</a>
+                <div class="dropdown-content">
+                    <a th:each="col : ${collections}"
+                       th:href="'collection_' + ${col.id} + '.html'"
+                       th:text="${col.name}">Collection Name</a>
+                </div>
+            </div>
+            <a href="species.html">Species & Fruiting</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <div class="page-header">
+        <h1 class="page-title">Tree Collections Overview</h1>
+        <p class="page-subtitle">Interactive map and catalog of all recorded planted trees.</p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.totalCount}">0</span>
+            <span class="stat-label">Total Trees</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.speciesCount}">0</span>
+            <span class="stat-label">Unique Species</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.verifiedCount}">0</span>
+            <span class="stat-label">Verified Trees</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.photoCount}">0</span>
+            <span class="stat-label">Photos Recorded</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value" th:text="${stats.scionCount}">0</span>
+            <span class="stat-label">Grafted Scions</span>
+        </div>
+    </div>
+
+    <!-- Map View -->
+    <div class="map-container">
+        <div class="map-header">
+            <span class="map-title">🗺️ All Trees Map</span>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Satellite & Street View</span>
+        </div>
+        <div id="map"></div>
+    </div>
+
+    <!-- Collections Grid -->
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-dark);">Your Collections</h2>
+    <div class="collections-grid">
+        <a th:each="col : ${collections}"
+           th:href="'collection_' + ${col.id} + '.html'"
+           class="collection-card">
+            <div>
+                <div class="collection-card-title" th:text="${col.name}">Collection Name</div>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    Click to explore the interactive map and catalog for this collection.
+                </p>
+            </div>
+            <div style="margin-top: 1.25rem; font-weight: 600; color: var(--primary-color);">
+                View Collection →
+            </div>
+        </a>
+    </div>
+</main>
+
+<footer>
+    <p>Tree Collection Archive &bull; Non-editable snapshot generated from TreeApp &bull; Powered by Leaflet & SQLite</p>
+</footer>
+
+<script th:inline="javascript">
+    const trees = /*[[${treesJson}]]*/ '[]';
+    const parsedTrees = JSON.parse(trees);
+
+    // Initialize Leaflet Map
+    const map = L.map('map');
+
+    // Base Layers (Satellite and Street)
+    const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        attribution: '&copy; OpenStreetMap contributors'
+    });
+
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 20,
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    satelliteLayer.addTo(map);
+
+    const baseMaps = {
+        "Satellite": satelliteLayer,
+        "Street Map": streetLayer
+    };
+    L.control.layers(baseMaps).addTo(map);
+
+    // Add Tree Markers
+    if (parsedTrees && parsedTrees.length > 0) {
+        const bounds = [];
+        parsedTrees.forEach(t => {
+            if (t.latitude && t.longitude) {
+                bounds.push([t.latitude, t.longitude]);
+
+                const marker = L.circleMarker([t.latitude, t.longitude], {
+                    radius: 7,
+                    fillColor: t.colorHex || '#4CAF50',
+                    color: '#ffffff',
+                    weight: 1.5,
+                    opacity: 1,
+                    fillOpacity: 0.9
+                }).addTo(map);
+
+                let popupContent = `
+                    <div class="tree-popup">
+                        <h4>${t.label || ''} ${t.englishName || t.latinName}</h4>
+                        <div class="latin">${t.latinName || ''}</div>
+                        ${t.variety ? `<div><strong>Variety:</strong> ${t.variety}</div>` : ''}
+                        <div><strong>Collection:</strong> ${t.collectionName || ''}</div>
+                        <span class="badge badge-${(t.status || 'unverified').toLowerCase()}">${t.status || 'unverified'}</span><br>
+                        ${t.latestImagePath ? `<img src="images/${t.latestImagePath}" class="popup-thumb" alt="Tree photo" />` : ''}
+                        <a href="trees/tree_${t.id}.html" class="popup-link">View Tree Details & Photo Gallery →</a>
+                    </div>
+                `;
+                marker.bindPopup(popupContent);
+            }
+        });
+
+        if (bounds.length > 0) {
+            map.fitBounds(bounds, { padding: [40, 40], maxZoom: 18 });
+        }
+    } else {
+        map.setView([51.505, -0.09], 13);
+    }
+</script>
+
+</body>
+</html>

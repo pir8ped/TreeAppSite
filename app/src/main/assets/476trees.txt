@@ -1,0 +1,477 @@
+treeId;latinName;latitude;longitude;datePlanted;notes;Origin;Rootstock;Variety
+1;Juglans nigra;45.10576928;1.92748722;1569568893981;;Origin;Rootstock;Variety
+2;Juglans nigra;45.1057701;1.92747367;1569568937366;;Origin;Rootstock;Variety
+3;Juglans nigra;45.10575364;1.92748874;1569569236646;;Origin;Rootstock;Variety
+4;Juglans nigra;45.10574668;1.92749456;1569569241845;;Origin;Rootstock;Variety
+5;Juglans nigra;45.1057798;1.92751027;1569569253313;;Origin;Rootstock;Variety
+6;Juglans nigra;45.10578328;1.92750684;1569569258544;;Origin;Rootstock;Variety
+7;Juglans nigra;45.10575658;1.92751981;1569569308149;;Origin;Rootstock;Variety
+8;Juglans nigra;45.1057344;1.92751757;1569569428360;;Origin;Rootstock;Variety
+9;Juglans nigra;45.10575953;1.92752362;1569569458324;;Origin;Rootstock;Variety
+10;Juglans nigra;45.10574179;1.92752108;1569569468998;;Origin;Rootstock;Variety
+11;Juglans nigra;45.10575015;1.92750603;1569569498683;;Origin;Rootstock;Variety
+12;Juglans nigra;45.10574857;1.9275118;1569569533750;;Origin;Rootstock;Variety
+13;Juglans nigra;45.10579238;1.92746869;1569569642008;;Origin;Rootstock;Variety
+14;Juglans nigra;45.10579064;1.92750769;1569569672592;collected from local tree,Argentat;Origin;Rootstock;Variety
+15;Juglans nigra;45.10577967;1.92750289;1569569704794;collected from local tree,Argentat;Origin;Rootstock;Variety
+16;Juglans nigra;45.10577315;1.92750612;1569569735344;collected from local tree,Argentat;Origin;Rootstock;Variety
+17;Juglans nigra;45.1057619;1.92752359;1569569762160;collected from local tree,Argentat;Origin;Rootstock;Variety
+18;Juglans nigra;45.10575894;1.9275322;1569569842576;collected from local tree,Argentat;Origin;Rootstock;Variety
+19;Juglans nigra;45.10577374;1.92752015;1569569852425;collected from local tree,Argentat;Origin;Rootstock;Variety
+20;Juglans nigra;45.10574856;1.92754143;1569569883695;collected from local tree,Argentat;Origin;Rootstock;Variety
+21;Juglans nigra;45.10574797;1.92756153;1569569904916;collected from local tree,Argentat;Origin;Rootstock;Variety
+22;Juglans nigra;45.10573922;1.92757711;1569569932146;collected from local tree,Argentat;Origin;Rootstock;Variety
+23;Juglans nigra;45.10573984;1.92758446;1569569973361;collected from local tree,Argentat;Origin;Rootstock;Variety
+24;Juglans nigra;45.10574783;1.9275891;1569570004010;collected from local tree,Argentat;Origin;Rootstock;Variety
+25;Juglans nigra;45.10575789;1.92749974;1569570143060;collected from local tree,Argentat;Origin;Rootstock;Variety
+26;Juglans nigra;45.10574689;1.92750849;1569570147692;collected from local tree,Argentat;Origin;Rootstock;Variety
+27;Juglans nigra;45.10575453;1.92752161;1569570191627;collected from local tree,Argentat;Origin;Rootstock;Variety
+28;Juglans nigra;45.10576389;1.92753456;1569570239043;collected from local tree,Argentat;Origin;Rootstock;Variety
+29;Juglans nigra;45.10575431;1.92752914;1569570241760;collected from local tree,Argentat;Origin;Rootstock;Variety
+30;Juglans nigra;45.10576143;1.92754289;1569570280460;collected from local tree,Argentat;Origin;Rootstock;Variety
+31;Juglans nigra;45.10574936;1.92754561;1569570302975;collected from local tree,Argentat;Origin;Rootstock;Variety
+32;Juglans nigra;45.10574363;1.92754532;1569570349676;collected from local tree,Argentat;Origin;Rootstock;Variety
+33;Juglans nigra;45.10575424;1.92755475;1569570403485;collected from local tree,Argentat;Origin;Rootstock;Variety
+34;Juglans nigra;45.1057422;1.92755448;1569570413462;collected from local tree,Argentat;Origin;Rootstock;Variety
+35;Juglans nigra;45.10573294;1.92754849;1569570448240;collected from local tree,Argentat;Origin;Rootstock;Variety
+36;Juglans nigra;45.10572707;1.92754482;1569570474125;collected from local tree,Argentat;Origin;Rootstock;Variety
+37;Juglans nigra;45.10573457;1.92757943;1569570619477;collected from local tree,Argentat;Origin;Rootstock;Variety
+38;Juglans nigra;45.10570885;1.92759831;1569570647971;collected from local tree,Argentat;Origin;Rootstock;Variety
+39;Juglans nigra;45.10569388;1.92760075;1569570679507;collected from local tree,Argentat;Origin;Rootstock;Variety
+40;Juglans nigra;45.10571461;1.92761867;1569570722840;collected from local tree,Argentat;Origin;Rootstock;Variety
+41;Juglans nigra;45.10570125;1.92760081;1569570751490;collected from local tree,Argentat;Origin;Rootstock;Variety
+42;Juglans nigra;45.10569967;1.92759555;1569570783143;collected from local tree,Argentat;Origin;Rootstock;Variety
+43;Juglans nigra;45.10570697;1.92760868;1569570833413;collected from local tree,Argentat;Origin;Rootstock;Variety
+44;Juglans nigra;45.10569668;1.92761939;1569570918689;collected from local tree,Argentat;Origin;Rootstock;Variety
+45;Juglans nigra;45.10569042;1.92761159;1569570951111;collected from local tree,Argentat;Origin;Rootstock;Variety
+46;Juglans nigra;45.1056992;1.92762869;1569570991042;collected from local tree,Argentat;Origin;Rootstock;Variety
+47;Juglans nigra;45.10570956;1.92761128;1569571029588;collected from local tree,Argentat;Origin;Rootstock;Variety
+48;Juglans nigra;45.10570136;1.92759345;1569571065792;collected from local tree,Argentat;Origin;Rootstock;Variety
+49;Juglans nigra;45.10570757;1.92756904;1569571090175;collected from local tree,Argentat;Origin;Rootstock;Variety
+50;Juglans nigra;45.10570194;1.9275415;1569571113493;collected from local tree,Argentat;Origin;Rootstock;Variety
+51;Juglans nigra;45.10569302;1.92753904;1569571142507;collected from local tree,Argentat;Origin;Rootstock;Variety
+52;Juglans nigra;45.10567866;1.9275352;1569571202943;collected from local tree,Argentat;Origin;Rootstock;Variety
+53;Juglans nigra;45.10568518;1.92756802;1569571236125;collected from local tree,Argentat;Origin;Rootstock;Variety
+55;Pyrus Betulaefolia;45.10511897;1.92975027;1569621600000;two metres high. September 20 drilled in grafts died.labelled;wild pear ready for grafting;own;Argentat special
+56;Pinus Pinea;45.10509176937279;1.929636485874653;1569621600000;one foot high. sprouting after drought rescue, September 20. labelled;seed 20,propagated in Totnes;own;Variety
+57;Pinus Pinea;45.10509631;1.92961921;1569672650479;one foot high;seed 20,propagated in Totnes;own;Variety
+58;Pinus Pinea;45.10506141;1.9295993;1569621600000;one foot high labelled. brown at bottom but healthy buds growing in September. labelled;no vole guard,seed 20,propagated in Totnes;own;Variety
+59;Pinus Pinea;45.10503450227528;1.9297021999955177;1569621600000;one foot high. 2 feet high. happy after drought rescue. September 20 labelled;,seed 20,propagated in Totnes;own;Variety
+60;Pinus Pinea;45.10507037;1.92981432;1569621600000;four inches high. 15 inches high. 3 shoots. improving after drought rescue September 20 labelled.;no vole guard,seed 20,propagated in Totnes;own;Variety
+61;Araucaria araucana;45.10219367;1.92793548;1569691762227;planted in Argentat October 2018;propagated in Totnes;own;Variety
+62;Araucaria araucana;45.1030481;1.92893011;1569692034682;planted in Argentat October 2018;propagated in Totnes;own;Variety
+63;Morus Nigra;45.09204396;1.93145934;1569836589810;;Origin;Rootstock;Variety
+64;Ficus carica;45.09212575;1.93356261;1569836961059;fig,variety with very divided leaves,overhanging car park;Origin;Rootstock;Variety
+65;Araucaria araucana;45.10360879;1.92743327;1570086448570;mostly brown after the drought summer 2019;Origin;Rootstock;Variety
+66;Araucaria araucana;45.10344122;1.92720761;1570086542758;1/3 brown after the drought summer 2019;Origin;Rootstock;Variety
+67;Araucaria araucana;45.1041881;1.92595951;1570087409517;1/4 brown after the drought summer 2019;Origin;Rootstock;Variety
+68;Araucaria araucana;45.10344805;1.92905145;1570174040744;;Origin;Rootstock;Variety
+69;Araucaria araucana;45.10326587;1.92908299;1570174148925;;Origin;Rootstock;Variety
+70;Araucaria araucana;45.10271398;1.9288511;1570174377764;;Origin;Rootstock;Variety
+71;Araucaria araucana;45.10271193;1.9288521;1570174382308;;Origin;Rootstock;Variety
+72;Araucaria araucana;45.1023462;1.928637;1570174602360;;Origin;Rootstock;Variety
+73;Araucaria araucana;45.10224357;1.92801517;1570174907207;;Origin;Rootstock;Variety
+74;Araucaria araucana;45.10211224;1.92751543;1570175031905;;Origin;Rootstock;Variety
+75;Pyrus Betulaefolia;45.10469716;1.92931084;1570357236508;;Origin;Rootstock;Variety
+76;Pyrus Betulaefolia;45.10471424;1.92937935;1570357282247;;Origin;Rootstock;Variety
+77;Pyrus Betulaefolia;45.10501032;1.9291034;1570357553541;;Origin;Rootstock;Variety
+78;Corylus Avellana;45.10276897;1.93509501;1570364056245;very nice big nuts,overhanging a fence. take cuttings!;Origin;Rootstock;Variety
+79;Juglans nigra;45.10571567;1.92763044;1570375231386;local tree;Argentat;Rootstock;Variety
+80;Juglans nigra;45.10573833;1.92765865;1570375279694;local tree;Argentat;Rootstock;Variety
+81;Juglans nigra;45.10571656;1.92763841;1570375329947;local tree;Argentat;Rootstock;Variety
+82;Juglans nigra;45.10571794;1.92762303;1570375370664;local tree;Argentat;Rootstock;Variety
+83;Juglans nigra;45.10567279;1.92763286;1570375414009;local tree;Argentat;Rootstock;Variety
+84;Juglans nigra;45.1056806;1.92760075;1570375479233;local tree;Argentat;Rootstock;Variety
+85;Juglans nigra;45.10567652;1.92761793;1570375522340;local tree;Argentat;Rootstock;Variety
+86;Juglans nigra;45.10566427;1.92753678;1570375565955;local tree;Argentat;Rootstock;Variety
+87;Juglans nigra;45.10563158;1.92759624;1570375598315;local tree;Argentat;Rootstock;Variety
+88;Juglans nigra;45.10564607;1.92766855;1570375650502;local tree;Argentat;Rootstock;Variety
+89;Juglans nigra;45.10566411;1.92762284;1570375684588;local tree;Argentat;Rootstock;Variety
+90;Juglans nigra;45.10566295;1.92760578;1570375718524;local tree;Argentat;Rootstock;Variety
+91;Juglans nigra;45.10566358;1.92762573;1570375749333;local tree;Argentat;Rootstock;Variety
+92;Juglans nigra;45.10565629;1.92770239;1570375797426;local tree;Argentat;Rootstock;Variety
+93;Juglans nigra;45.10565536;1.92766799;1570375843911;local tree;Argentat;Rootstock;Variety
+94;Juglans nigra;45.10566384;1.92766381;1570375873553;local tree;Argentat;Rootstock;Variety
+95;Juglans nigra;45.10563885;1.9276664;1570375914049;local tree;Argentat;Rootstock;Variety
+96;Juglans nigra;45.10563962;1.92769905;1570375955125;local tree;Argentat;Rootstock;Variety
+97;Juglans nigra;45.10564002;1.92768457;1570375988547;local tree;Argentat;Rootstock;Variety
+98;Juglans nigra;45.10564522;1.9276573;1570376027918;local tree;Argentat;Rootstock;Variety
+99;Juglans nigra;45.10564845;1.92762781;1570376078372;local tree;Argentat;Rootstock;Variety
+100;Juglans nigra;45.10562554;1.92769432;1570376184343;local tree;Argentat;Rootstock;Variety
+101;Juglans nigra;45.10561822;1.92769433;1570376227592;local tree;Argentat;Rootstock;Variety
+102;Juglans nigra;45.10564673;1.92764875;1570376269181;local tree;Argentat;Rootstock;Variety
+103;Juglans nigra;45.10504624;1.92789949;1570376670536;local tree;Argentat;Rootstock;Variety
+104;Juglans regia;45.10503958;1.92789514;1570376681019;local tree;Argentat;Rootstock;Variety
+105;Juglans regia;45.10502339;1.92785515;1570376705467;local tree;Argentat;Rootstock;Variety
+106;Juglans regia;45.10503822;1.92786644;1570376735773;local tree;Argentat;Rootstock;Variety
+107;Juglans regia;45.10503122;1.92788762;1570376761591;local tree;Argentat;Rootstock;Variety
+108;Juglans regia;45.10498359;1.92780356;1570376794274;local tree;Argentat;Rootstock;Variety
+109;Juglans regia;45.10497723;1.92783889;1570376827977;local tree;Argentat;Rootstock;Variety
+110;Juglans regia;45.10498556;1.92786556;1570376861756;local tree;Argentat;Rootstock;Variety
+111;Juglans regia;45.10496512;1.92784496;1570376896236;local tree;Argentat;Rootstock;Variety
+112;Juglans regia;45.10495017;1.92785585;1570376923375;local tree;Argentat;Rootstock;Variety
+113;Juglans regia;45.10493329;1.92784387;1570376952047;local tree;Argentat;Rootstock;Variety
+114;Juglans regia;45.10490875;1.92785096;1570376986377;local tree;Argentat;Rootstock;Variety
+115;Juglans regia;45.10490731;1.92783913;1570377015399;local tree;Argentat;Rootstock;Variety
+116;Juglans regia;45.10488093;1.92789105;1570377040683;local tree;Argentat;Rootstock;Variety
+117;Juglans regia;45.10488657;1.92785512;1570377072884;local tree;Argentat;Rootstock;Variety
+118;Juglans regia;45.10486317;1.92787983;1570377099990;local tree;Argentat;Rootstock;Variety
+119;Juglans regia;45.10484983;1.92786585;1570377128658;local tree;Argentat;Rootstock;Variety
+120;Juglans regia;45.10482584;1.92785529;1570377167010;local tree;Argentat;Rootstock;Variety
+121;Juglans regia;45.10480343;1.9278585;1570377203196;local tree;Argentat;Rootstock;Variety
+122;Juglans regia;45.10478019;1.92786793;1570377243114;local tree;Argentat;Rootstock;Variety
+123;Juglans regia;45.1047746;1.92785288;1570377277487;local tree;Argentat;Rootstock;Variety
+124;Juglans regia;45.10477259;1.92788455;1570377300079;local tree;Argentat;Rootstock;Variety
+125;Juglans regia;45.10474965;1.92787101;1570377325226;local tree;Argentat;Rootstock;Variety
+126;Juglans regia;45.10473955;1.92787574;1570377358274;local tree;Argentat;Rootstock;Variety
+127;Juglans regia;45.1047216;1.92787518;1570377386478;local tree;Argentat;Rootstock;Variety
+128;Juglans regia;45.10470233;1.92784938;1570377411758;local tree;Argentat;Rootstock;Variety
+129;Juglans regia;45.10468129;1.92788617;1570377450513;local tree;Argentat;Rootstock;Variety
+130;Juglans regia;45.1047031;1.92789318;1570377472202;local tree;Argentat;Rootstock;Variety
+131;Juglans regia;45.10465802;1.92784972;1570377495871;local tree;Argentat;Rootstock;Variety
+132;Juglans regia;45.1046232;1.92786426;1570377521956;local tree;Argentat;Rootstock;Variety
+133;Juglans regia;45.1046054;1.9279015;1570377546055;local tree;Argentat;Rootstock;Variety
+134;Juglans regia;45.10460575;1.92787202;1570377582697;local tree;Argentat;Rootstock;Variety
+135;Juglans regia;45.1045716;1.92787671;1570377618836;local tree;Argentat;Rootstock;Variety
+136;Juglans regia;45.10455995;1.92791118;1570377644442;local tree;Argentat;Rootstock;Variety
+137;Juglans regia;45.10456812;1.92788654;1570377670145;local tree;Argentat;Rootstock;Variety
+138;Juglans regia;45.10454798;1.92800516;1570377714789;local tree;Argentat;Rootstock;Variety
+139;Juglans regia;45.10460153;1.92801745;1570377741477;local tree;Argentat;Rootstock;Variety
+140;Juglans regia;45.10463245;1.92802314;1570377776737;local tree;Argentat;Rootstock;Variety
+141;Juglans regia;45.10463945;1.92804167;1570377809668;local tree;Argentat;Rootstock;Variety
+142;Juglans regia;45.10465818;1.92807389;1570377844207;local tree;Argentat;Rootstock;Variety
+143;Juglans regia;45.10465683;1.92804489;1570377874260;local tree;Argentat;Rootstock;Variety
+144;Juglans regia;45.10468405;1.92804591;1570377908671;local tree;Argentat;Rootstock;Variety
+145;Juglans regia;45.10472769;1.9280494;1570377952046;local tree;Argentat;Rootstock;Variety
+146;Juglans regia;45.10474861;1.92802699;1570377984197;local tree;Argentat;Rootstock;Variety
+147;Juglans regia;45.10476946;1.92802293;1570378008288;local tree;Argentat;Rootstock;Variety
+148;Juglans regia;45.10478597;1.92801909;1570378039005;local tree;Argentat;Rootstock;Variety
+149;Juglans regia;45.10479358;1.92802138;1570378063565;local tree;Argentat;Rootstock;Variety
+150;Juglans regia;45.10483139;1.92806368;1570378086778;local tree;Argentat;Rootstock;Variety
+151;Juglans regia;45.10483485;1.92803185;1570378112526;local tree;Argentat;Rootstock;Variety
+152;Juglans regia;45.10484246;1.92802732;1570378138637;;Origin;Rootstock;Variety
+153;Juglans regia;45.10485587;1.92804547;1570378161966;;Origin;Rootstock;Variety
+154;Juglans regia;45.10488672;1.92804937;1570378192453;;Origin;Rootstock;Variety
+155;Juglans regia;45.1049264;1.92804443;1570378218108;;Origin;Rootstock;Variety
+156;Juglans regia;45.10498401;1.92804662;1570378244743;;Origin;Rootstock;Variety
+157;Juglans regia;45.1049679;1.92805528;1570378267927;;Origin;Rootstock;Variety
+158;Juglans regia;45.10499838;1.92804952;1570378290001;;Origin;Rootstock;Variety
+159;Juglans regia;45.10497699;1.92803617;1570378309102;;Origin;Rootstock;Variety
+160;Juglans regia;45.10499256;1.92801588;1570378328922;;Origin;Rootstock;Variety
+161;Juglans regia;45.10501532;1.92801843;1570378347718;;Origin;Rootstock;Variety
+162;Juglans regia;45.10504105;1.92801268;1570378370441;;Origin;Rootstock;Variety
+163;Juglans regia;45.10509024;1.92805335;1570378415543;;Origin;Rootstock;Variety
+164;Juglans regia;45.10512968;1.92804825;1570378431746;;Origin;Rootstock;Variety
+165;Juglans regia;45.10514356;1.92804381;1570378452576;;Origin;Rootstock;Variety
+166;Juglans regia;45.10513217;1.92798575;1570378479114;;Origin;Rootstock;Variety
+167;Juglans regia;45.10514522;1.92795915;1570378498670;;Origin;Rootstock;Variety
+168;Juglans regia;45.10515143;1.9279203;1570378540727;;Origin;Rootstock;Variety
+169;Juglans regia;45.10516362;1.92788376;1570378568451;;Origin;Rootstock;Variety
+170;Juglans regia;45.1051824;1.92787062;1570378591654;;Origin;Rootstock;Variety
+171;Juglans regia;45.10518847;1.92781501;1570378624118;;Origin;Rootstock;Variety
+172;Juglans regia;45.10519733;1.92777418;1570378650655;;Origin;Rootstock;Variety
+173;Juglans regia;45.10517299;1.92773531;1570378669116;;Origin;Rootstock;Variety
+174;Juglans regia;45.10517132;1.9277086;1570378689813;;Origin;Rootstock;Variety
+175;Juglans regia;45.10511691;1.92774528;1570378707387;;Origin;Rootstock;Variety
+176;Juglans regia;45.10508363;1.92771879;1570378727106;;Origin;Rootstock;Variety
+177;Juglans regia;45.10506753;1.92769018;1570378753647;;Origin;Rootstock;Variety
+178;Juglans regia;45.10502117;1.92772189;1570378779447;;Origin;Rootstock;Variety
+179;Juglans regia;45.10499125;1.92772105;1570378806967;;Origin;Rootstock;Variety
+180;Juglans regia;45.10501043;1.92771088;1570378828127;;Origin;Rootstock;Variety
+181;Juglans regia;45.10500098;1.92774482;1570378850348;;Origin;Rootstock;Variety
+182;Juglans regia;45.10498678;1.92771209;1570378888380;;Origin;Rootstock;Variety
+183;Vitis vinifera;45.09549913;1.93359562;1570662000000;very nice grape to take cuttings from;Origin;Rootstock;Variety
+184;Araucaria araucana;45.14858838;1.48975217;1570875674318;female,by the road;Origin;Rootstock;Variety
+185;Pyrus Betulaefolia;45.10458802;1.92890908;1570895969423;1;self seeded;none;Variety
+186;Pyrus Betulaefolia;45.10501798;1.92915337;1570831200000;September 20 3 grafts attempted in march all dead. labelled;self seeded;none;Variety
+187;Pyrus Betulaefolia;45.10506674;1.92981462;1570896317609;3;self seeded;none;Variety
+188;Pyrus Betulaefolia;45.10437202;1.92873088;1570897137131;self seeded;;wild;Variety
+189;Araucaria araucana;48.68637232;-3.992079;1571314672008;original,v big female Pol de lion;Origin;Rootstock;Variety
+190;Alnus Cordata;50.43252452;-3.68145606;1571499696008;for taking cuttings;Origin;Rootstock;Variety
+191;Araucaria araucana;50.4361594;-3.69030507;631152000000;female 20 feet high,full of cones for 2020, test;Origin;Rootstock;Variety
+192;Prunus avium;50.43359377;-3.69695859;1580169600000;;Origin;Rootstock;morello
+193;Prunus domestica;50.4335923;-3.69695128;1580169600000;;Origin;Rootstock;victoria
+194;Pyrus communis;50.43359215;-3.6969455;1580169600000;;Origin;Rootstock;doyenne de comice
+195;Pyrus communis;50.43362745;-3.69693601;1580169600000;;Origin;Rootstock;conference
+196;Prunus Domestica;50.43361054;-3.69690559;1580166000000;labelled;Origin;Rootstock;opal
+197;Prunus avium;50.43362087;-3.69691687;1580169600000;;Origin;Rootstock;hedelfinger
+198;Malus domestica;50.43362887;-3.69694561;1580169600000;;Origin;Rootstock;cox
+199;Prunus Cerasifera;45.10502815;1.92957936;1583190000000;there was water flowing at the bottom of the planting hole. might be too wet, but might be drought proof in summer. labelled experiment!;trago;?;hedelfinger
+200;Prunus Cerasifera;45.10501286;1.9295348;1583190000000;very little root on it, and curled up. chances not great. ded;trago;?;morello
+201;Pyrus Betulaefolia;45.10500862;1.9291652;1583190000000;labelled;trago;?;doyenne de comice
+202;Malus domestica;45.10493648;1.92911619;1583190000000;labelled ok;trago;?;jonagold
+203;Prunus Cerasifera;45.10498077;1.92906746;1583190000000;;seed;0;0
+204;Prunus Cerasifera;45.10498764733457;1.9292130321264265;1583190000000;;seed;0;0
+205;Prunus Cerasifera;45.1050210137357;1.9291359186172485;1583190000000;labelled.  September 20: 5 feet high;seed;0;?
+206;Prunus Persica;45.10447686;1.92939188;1583362800000;4 3 from  seed;Origin;Rootstock;or nectarine. was plant 4 3, grown from seed
+207;Prunus Armeniaca;45.10483598;1.92964369;1583400693324;probably,lost label;Origin;Rootstock;Variety
+208;Elaeagnus x ebbingei;45.10483696;1.92907632;1583362800000;elaeagnus ebbingeii labelled;hope grove nurseries;Rootstock;Variety
+209;Elaeagnus x ebbingei;45.10483718;1.92907675;1583418175040;elaeagnus ebbingeii;hope grove nurseries;Rootstock;Variety
+210;Ficus carica;45.10477249;1.92914035;1583418383870;;Jurassic nurseries;Rootstock;signora
+211;Prunus Cerasifera;45.10502625;1.92965767;1583489936676;probably, label lost;Origin;Rootstock;Variety
+212;Prunus Persica;45.10506857857163;1.9296797364950182;1583449200000;probably, label lost. September 20, 2 feet high, yellow leaves from dry summer turning green. labelled;seed;Rootstock;merril o' henry
+213;Prunus Armeniaca;45.10491705;1.92941008;1583449200000;;seed;Rootstock;merril o' henry
+214;Prunus Cerasifera;45.10492896028392;1.9294443726539612;1583490191480;probably, no label;seed;Rootstock;Variety
+215;Prunus Persica;45.10487792;1.92961199;1583449200000;probably;seed 38;Rootstock;Variety
+216;Prunus Armeniaca;45.10479880733529;1.9295308738946915;1583490295019;;seed;Rootstock;Variety
+217;Prunus Cerasifera;45.10487926555675;1.929604969918728;1583449200000;probably, no label. 8 sept. the graft of the fainting plum died. tree ok, 1 metre high;seed;Rootstock;Variety
+218;Prunus avium;45.10477945;1.92965645;1583490386449;probably, no label;;Krymsk 86;hedelfinger
+219;Prunus Persica;45.10489796024489;1.929416544735432;1583490530548;nectarine;Origin;Rootstock;nectareine
+220;Prunus Persica;45.10484400593837;1.929435320198536;1583490655550;from seed 38;seed;Rootstock;nectareine
+221;Prunus avium;45.10475619;1.92950938;1583490704015;from seed 38;;Krymsk 86;hedelfinger
+222;Prunus Cerasifera;45.10465303568055;1.9296113401651385;1583449200000;from seed 38;;cherry plum;dartington plum
+223;Prunus Cerasifera;45.10469231833843;1.9295057281851768;1583490897311;;seed;;
+224;Prunus Cerasifera;45.10461518;1.92954756;1583490929395;seed s32;seed;;
+225;Prunus Cerasifera;45.10463505084023;1.9295107573270798;1583490941845;seed s32;seed;;
+226;Prunus Cerasifera;45.10464998;1.92946235;1583490957061;seed s32;seed;;
+227;Prunus Cerasifera;45.10461552;1.92944664;1583490967378;seed s32;seed;;
+228;Prunus Cerasifera;45.10458936;1.92941006;1583449200000;seed, p1 almond from T0otnes cemetery -didn't take.;seed;cherry plum;
+229;Prunus persica nucipersica;45.10457967642781;1.9294078275561335;1583491100824;nectarine;seed;;
+230;Prunus Cerasifera;45.10456539;1.92954639;1583491195720;probably, no label;seed;;
+231;Prunus Cerasifera;45.104572340497334;1.9294923171401024;1583491213886;from seed s32;seed;;
+232;Prunus Cerasifera;45.10459869;1.92954232;1583491221337;from seed s32;seed;;
+233;Prunus Cerasifera;45.104587012357314;1.9294869527220724;1583491232302;from seed s32;seed;;
+234;Prunus Cerasifera;45.10463787;1.92954073;1583449200000;from seed s32;seed;cherry plum;dartington plum, graft died. tree ok, over 1m high
+235;Prunus Cerasifera;45.10469847104144;1.929464153945446;1583491350136;;seed;;
+236;Prunus Cerasifera;45.104679303002996;1.9295496493577957;1583491377153;from seed s32;seed;;
+237;Prunus Cerasifera;45.10471886;1.92943499;1583491400237;;seed;;
+238;Prunus Cerasifera;45.10476484;1.92943356;1583491416819;;seed;;
+239;Prunus Cerasifera;45.10476842;1.92936321;1583491425918;;seed;;
+240;Prunus persica nucipersica;45.10492576;1.92940115;1583491511090;nectareine;seed;;
+241;Prunus Cerasifera;45.10492470073756;1.9295788183808325;1583449200000;looks like apricot!;seed;;
+242;Punica Granatum;45.10460264;1.92908379;1583492952857;;Jurassic plants;Rootstock;mollar
+243;Corylus Avellana;45.10470939;1.92908623;1583493270835;hazel;;Rootstock;Webster's Cobb
+244;Actinidia Arguta;45.10461489;1.9292299;1583497371635;;Jurassic plants;Rootstock;Variety
+245;Actinidia Arguta;45.10464149;1.92920011;1583497379420;;Jurassic plants;Rootstock;Variety
+246;Actinidia Arguta;45.10466638;1.92919542;1583497385102;;Jurassic plants;Rootstock;Variety
+247;Pyrus Bretschneideri;45.1044971;1.92869883;1583497678765;from seed 63;Jurassic plants;Rootstock;Variety
+248;Pyrus Bretschneideri;45.10453288;1.92862259;1583503944036;from seed batch 63;Origin;Rootstock;Variety
+249;Pyrus Bretschneideri;45.1045353;1.92862318;1583504136612;from seed batch 63, very little root maybe something ate it.;Origin;Rootstock;Variety
+250;Pyrus Bretschneideri;45.10449093;1.9286802;1583504388342;from seed batch 63;Origin;Rootstock;Variety
+251;Pyrus Bretschneideri;45.10445538;1.92865137;1583504529287;from seed batch 63;Origin;Rootstock;Variety
+252;Pyrus Bretschneideri;45.10440142;1.9286234;1583504724558;from seed batch 63 almost definitely but lost label;Origin;Rootstock;Variety
+253;Pyrus Bretschneideri;45.1043739;1.92861372;1583504883748;from seed batch 45;Origin;Rootstock;Variety
+254;Pyrus Bretschneideri;45.10430539;1.928617;1583505095339;from seed batch 63;Origin;Rootstock;Variety
+255;Pyrus Bretschneideri;45.10430814;1.92861782;1583505320898;;Origin;Rootstock;Variety
+256;Pyrus Bretschneideri;45.10428267;1.92864813;1583507004584;63;Origin;Rootstock;Variety
+257;Pyrus Bretschneideri;45.10426819;1.92861654;1583507157126;45;Origin;Rootstock;Variety
+258;Zanthoxylum Schinifolium;45.10436178;1.92872889;1583507391986;;Origin;Rootstock;Variety
+259;Rubus fruticosus x R. idaeus;45.10460386;1.92925261;1583508550789;tayberry,;Morrison's;Rootstock;Buckingham
+260;Rubus loganobaccus;45.10470078;1.92920148;1583508731331;loganberry,;Morrison's;Rootstock;?
+261;Rubus phoenicolasius;45.10464843;1.92924258;1583509007170;Japanese wineberry,;Morrison's;Rootstock;?
+262;Rubus phoenicolasius;45.10467335;1.92923518;1583509325612;Japanese wineberry,;Morrison's;Rootstock;?
+263;Ficus carica;45.10467944;1.92925822;1583509354410;brown Turkey;cutting from garden;Rootstock;?
+264;Amelanchier lamarckii;45.10450304;1.92909143;1583600088598;;Origin;Rootstock;Variety
+265;Amelanchier lamarckii;45.10447329;1.92907356;1583600100630;;Origin;Rootstock;Variety
+266;Amelanchier lamarckii;45.1044568;1.92903386;1583600107846;;Origin;Rootstock;Variety
+267;Phormium tenax;45.10470287;1.92824764;1583600266685;;Origin;Rootstock;Variety
+268;Phormium tenax;45.10472269;1.92821261;1583600281418;;Origin;Rootstock;Variety
+269;Phyllostachys edulis;45.10466465;1.92823488;1583600300202;;Origin;Rootstock;Variety
+270;Cornouiller Officinal;45.1046908;1.92831221;1583600446405;;Origin;Rootstock;Variety
+271;Phyllostachys edulis;45.10469588;1.92829982;1583600468902;;Origin;Rootstock;Variety
+272;Dendrocalamus asper;45.10476547;1.92841332;1583600636452;;Origin;Rootstock;Variety
+273;Dendrocalamus asper;45.1047226;1.92826076;1583600654651;;Origin;Rootstock;Variety
+274;Rubus Idaeus;45.10381667;1.9284603;1583600953930;;Origin;Rootstock;Variety
+275;Rubus Idaeus;45.10381375;1.92845623;1583600958937;;Origin;Rootstock;Variety
+276;Rubus Idaeus;45.10380093;1.92845225;1583600960468;;Origin;Rootstock;Variety
+277;Rubus Idaeus;45.10379622;1.92845232;1583600961951;;Origin;Rootstock;Variety
+278;Rubus Idaeus;45.10377795;1.92845522;1583600964918;;Origin;Rootstock;Variety
+279;Salix;45.10331533;1.92818976;1583601063369;;Origin;Rootstock;Variety
+280;Salix;45.10333735;1.92808032;1583601089103;;Origin;Rootstock;Variety
+281;Salix;45.10317178;1.92802967;1583601112170;;Origin;Rootstock;Variety
+282;Salix;45.10313602;1.92810342;1583601121053;;Origin;Rootstock;Variety
+283;Salix;45.10340084;1.9282175;1583751347272;X 4;Origin;Rootstock;crack
+284;Salix;45.10322904;1.92803339;1584021226673;;Origin;Rootstock;Goat
+285;Salix;45.10324607;1.92809411;1584021254942;;Origin;Rootstock;Goat
+286;Vitis vinifera;45.10438757;1.92751785;1584032171989;from decking Totnes;Origin;Rootstock;Variety
+287;Vitis vinifera;45.10453609;1.92816004;1584032228555;from decking Totnes;Origin;Rootstock;Variety
+288;Vitis vinifera;45.10495365;1.92814999;1584032453044;from decking Totnes, not much root development, may be dead;Origin;Rootstock;Variety
+289;Ficus carica;45.10441607;1.92784354;1584032567779;from Totnes;Origin;Rootstock;brown Turkey
+290;Ficus carica;45.10443081;1.92787656;1584032572645;from Totnes;Origin;Rootstock;brown Turkey
+291;Ficus carica;45.10443171;1.92786581;1584032577744;from Totnes;Origin;Rootstock;brown Turkey
+292;Ficus carica;45.10442769;1.92787823;1584032582461;from Totnes;Origin;Rootstock;brown Turkey
+293;Ficus carica;45.10441997;1.92786621;1584032586312;from Totnes;Origin;Rootstock;brown Turkey
+294;Ficus carica;45.10441206;1.92787489;1584032601544;from Totnes;Origin;Rootstock;brown Turkey
+295;Ficus carica;45.1043951;1.92785653;1584032606362;from Totnes;Origin;Rootstock;brown Turkey
+296;Ficus carica;45.10437521;1.92787578;1584032609928;from Totnes;Origin;Rootstock;brown Turkey
+297;Ficus carica;45.10436611;1.92789879;1584032613777;from Totnes;Origin;Rootstock;brown Turkey
+298;Vitis vinifera;45.10412798;1.92808908;1584032828866;from Totnes;Origin;Rootstock;from decking, Totnes
+299;Vitis vinifera;45.10404716;1.92818024;1584033063973;from Totnes;Origin;Rootstock;from decking, Totnes
+300;Ficus carica;45.104754318622994;1.9278715923428533;1584096220195;;Origin;Rootstock;Variety
+301;Ficus carica;45.1047381;1.92792071;1584096225878;;Origin;Rootstock;Variety
+302;Ficus carica;45.10472117;1.92789934;1584096229410;;Origin;Rootstock;Variety
+303;Ficus carica;45.10469699;1.92791165;1584096233893;;Origin;Rootstock;Variety
+304;Ficus carica;45.10471055;1.92791627;1584096254627;;garden;Rootstock;brown Turkey
+305;Ficus carica;45.10469655;1.9279095;1584096258760;;garden;Rootstock;brown Turkey
+306;Ficus carica;45.10469252;1.92793411;1584096263543;;garden;Rootstock;brown Turkey
+307;Ficus carica;45.10468337;1.92793362;1584096268093;;garden;Rootstock;brown Turkey
+308;Ficus carica;45.10469034;1.92793465;1584096272409;;garden;Rootstock;brown Turkey
+309;Ficus carica;45.10470489;1.92789233;1584096282193;;garden;Rootstock;brown Turkey
+310;Ficus carica;45.10469679;1.92790732;1584096288894;;garden;Rootstock;brown Turkey
+311;Ficus carica;45.10468541;1.92788038;1584096292893;;garden;Rootstock;brown Turkey
+312;Ficus carica;45.10467963;1.92789873;1584096297710;;garden;Rootstock;brown Turkey
+313;Ficus carica;45.10467131;1.92789913;1584096301878;;garden;Rootstock;brown Turkey
+314;Ficus carica;45.1046568;1.9279041;1584096307593;;garden;Rootstock;brown Turkey
+315;Ficus carica;45.10465784;1.92790028;1584096312460;;garden;Rootstock;brown Turkey
+316;Ficus carica;45.10464388;1.92791638;1584096317310;;garden;Rootstock;brown Turkey
+317;Ficus carica;45.10463403;1.92788235;1584096322527;;garden;Rootstock;brown Turkey
+318;Ficus carica;45.10464745;1.92788914;1584096327344;;garden;Rootstock;brown Turkey
+319;Ficus carica;45.1046454;1.92786449;1584096331896;;garden;Rootstock;brown Turkey
+320;Ficus carica;45.10462745;1.92789034;1584096336625;;garden;Rootstock;brown Turkey
+321;Ficus carica;45.10456212;1.92790887;1584096346577;;garden;Rootstock;brown Turkey
+322;Ficus carica;45.10453389;1.92786964;1584096353593;;garden;Rootstock;brown Turkey
+323;Ficus carica;45.10453298;1.92787195;1584096358844;;garden;Rootstock;brown Turkey
+324;Ficus carica;45.10452981;1.92786977;1584096362927;;garden;Rootstock;brown Turkey
+325;Ficus carica;45.10451558;1.92788625;1584096367285;;garden;Rootstock;brown Turkey
+326;Ficus carica;45.10450433;1.92789499;1584096371427;;garden;Rootstock;brown Turkey
+327;Ficus carica;45.10448595;1.92788951;1584096386544;;garden;Rootstock;brown Turkey
+328;Ficus carica;45.104465;1.92790014;1584096392560;;garden;Rootstock;brown Turkey
+329;Vitis vinifera;45.10449324;1.92790925;1584096421578;planted here by mistake.;garden;Rootstock;
+330;Vitis vinifera;45.10426172;1.92803862;1584096795502;;garden;Rootstock;
+331;Actinidia Arguta;45.10511195;1.9297195;1584117519126;;Origin;Rootstock;Variety
+332;Actinidia Arguta;45.10508076;1.92965124;1584117529847;;Origin;Rootstock;Variety
+333;Actinidia Arguta;45.10502347;1.92956373;1584117543383;;Origin;Rootstock;Variety
+334;Actinidia Arguta;45.10505433;1.92954318;1584117554043;;Origin;Rootstock;Variety
+335;Actinidia Arguta;45.10507752;1.929179;1584117615610;;Origin;Rootstock;Variety
+336;Actinidia Arguta;45.10506972;1.92917215;1584117618260;;Origin;Rootstock;Variety
+337;Actinidia Arguta;45.10483095;1.92904281;1584117655910;;Origin;Rootstock;Variety
+338;Actinidia Arguta;45.10473842;1.92902655;1584117666159;;Origin;Rootstock;Variety
+339;Actinidia Arguta;45.10469658;1.92907809;1584054000000;labelled;Origin;Rootstock;Variety
+340;Actinidia Arguta;45.10469883;1.92894916;1584117690393;;Origin;Rootstock;Variety
+341;Actinidia Arguta;45.10469284;1.92910321;1584054000000;labelled;Origin;Rootstock;Variety
+342;Actinidia Arguta;45.10439055;1.92907749;1584117766530;;Origin;Rootstock;Variety
+343;Actinidia Arguta;45.10433937;1.92908642;1584117783978;;Origin;Rootstock;Variety
+344;Actinidia Arguta;45.10433741;1.92931117;1584117808362;;Origin;Rootstock;Variety
+345;Vitis vinifera;45.10435817;1.92928648;1584117824825;;Origin;Rootstock;Variety
+346;Actinidia Deliciosa;45.10447479;1.92889414;1584117922792;;Origin;Rootstock;Variety
+347;Actinidia Arguta;45.10446084;1.92883916;1584117944076;;Origin;Rootstock;Variety
+348;Actinidia Deliciosa;45.10462613;1.92885399;1584117970858;;Origin;Rootstock;Variety
+349;Actinidia Arguta;45.10465153;1.92907807;1584175326919;;Origin;Rootstock;Variety
+350;Vitis vinifera;45.10463223;1.9287291;1584176152228;;Origin;Rootstock;Variety
+351;Vitis vinifera;45.10461447;1.92886539;1584176453652;;Origin;Rootstock;Variety
+352;Vitis vinifera;45.1046397;1.92882815;1584176582410;;Origin;Rootstock;Variety
+353;Vitis vinifera;45.10467519;1.92882692;1584176876164;;Origin;Rootstock;Variety
+354;Vitis vinifera;45.1046947;1.92884177;1584176878896;;Origin;Rootstock;Variety
+355;Vitis vinifera;45.10469673;1.92895377;1584177160256;;Origin;Rootstock;Variety
+356;Vitis vinifera;45.10465434;1.92890167;1584177175491;;Origin;Rootstock;Variety
+357;Vitis vinifera;45.10448366;1.92891262;1584177376076;;Origin;Rootstock;Variety
+358;Actinidia Arguta;45.10404938;1.92814742;1584178611682;;Origin;Rootstock;Variety
+359;Actinidia Arguta;45.10419425;1.92802465;1584178743728;;Origin;Rootstock;Variety
+360;Actinidia Arguta;45.10394227;1.92941832;1584179110073;;Origin;Rootstock;Variety
+361;Actinidia Arguta;45.10415901;1.92944649;1584179394230;;Origin;Rootstock;Variety
+362;Actinidia Arguta;45.10422672;1.92942812;1584179545805;;Origin;Rootstock;Variety
+363;Actinidia Arguta;45.10418177;1.92939294;1584179682172;;Origin;Rootstock;Variety
+364;Actinidia Arguta;45.10435703;1.9294519;1584179847114;;Origin;Rootstock;Variety
+365;Actinidia Arguta;45.10442763;1.92961096;1584179965104;;Origin;Rootstock;Variety
+366;Actinidia Arguta;45.10452905;1.92941496;1584180228011;;Origin;Rootstock;Variety
+367;Actinidia Arguta;45.10452275;1.9294167;1584180229627;;Origin;Rootstock;Variety
+368;Actinidia Arguta;45.10450904;1.92944357;1584180380539;;Origin;Rootstock;Variety
+369;Pyrus Bretschneideri;45.10461241;1.92832653;1584183012448;;Origin;Rootstock;Variety
+370;Zanthoxylum Schinifolium;45.10457659;1.92828764;1584183446505;lost label. might also be asian pear;Origin;Rootstock;Variety
+371;Zanthoxylum Schinifolium;45.10454085;1.92827727;1584183649793;lost label. might also be asian pear;Origin;Rootstock;Variety
+372;Ficus carica;45.10458781;1.92823975;1584183861576;;Origin;Rootstock;brown Turkey
+373;Elaeagnus Umbellata;45.10448546;1.92920293;1584184924144;;follaton;Rootstock;from seed 11, olive ruby
+374;Elaeagnus Umbellata;45.10443428;1.92927633;1584184949714;;follaton;Rootstock;?
+375;Elaeagnus Umbellata;45.10443634;1.92918488;1584185197936;;follaton;Rootstock;from seed 10, brilliant rose
+376;Elaeagnus Umbellata;45.10439407;1.92913324;1584185400653;;follaton;Rootstock;from seed 10, brilliant rose
+377;Elaeagnus Umbellata;45.10449988;1.92918663;1584185605473;;follaton;Rootstock;from seed 10, brilliant rose
+378;Elaeagnus Umbellata;45.10452185;1.92930382;1584185801556;;follaton;Rootstock;from seed 10, brilliant rose
+379;Prunus Armeniaca;45.10474595;1.92951051;1584189556614;;Morrisons;Rootstock;
+380;Prunus Persica;45.10475136;1.92965111;1584189910933;;Morrisons;Rootstock;Jim dandy tardibelle
+381;Prunus Persica;45.10466889073248;1.9295479729771612;1584190199557;lost label, probably peach;Morrisons;Rootstock;
+382;Vitis vinifera;45.10477226;1.92970888;1584190386660;;garden;Rootstock;
+383;Prunus Persica;45.1048317;1.92973963;1584190616467;lost label, probably peach;;Rootstock;
+384;Prunus Domestica;50.4310458;-3.70811692;1596297111522;Damson,ripe 21 August;Origin;Rootstock;Damson
+385;Prunus Domestica;50.43104571;-3.70811669;1596297122528;Damson1, ripe 21 August;Origin;Rootstock;Damson
+386;Salix;50.43081549;-3.70790008;1598869925135;goat;Origin;Rootstock;Variety
+387;Juglans cinerea;50.430762674581196;-3.706563413143158;1598828400000;with suckers;Origin;Rootstock;Variety
+389;Juglans regia;50.42259731;-3.67365137;1598893505053;fernette;Origin;Rootstock;Variety
+390;Salix;47.47684209;-2.18159685;1599217154265;sweet chestnuts. very many, quite big;Origin;Rootstock;Variety
+391;Pinus Pinea;45.104267070297176;1.9295426085591316;1599581275066;planted in March. not grown, but survived drought. 10cm high;Origin;Rootstock;Variety
+392;Pinus Pinea;45.10502834960848;1.9297628849744797;1600709714556;was planted 2? years before September 20. 4 inches high. labelled;Origin;Rootstock;Variety
+393;Pinus Pinea;45.104973922142655;1.9298547506332397;1600709872499;was planted 2? years before September 20. 6 inches high. labelled;Origin;Rootstock;Variety
+394;Prunus Armeniaca;45.10500418;1.92977712;1600710039240;planted march 20 September 20 2 feet high. good after drought. labelled;Origin;Rootstock;Variety
+395;Prunus Domestica;45.10490233;1.92911004;1600769094608;planted march 20 labelled;Origin;Rootstock;opal
+396;Pinus Pinea;45.10472675;1.92916926;1584831600000;planted march 20;;Rootstock;Variety
+397;Pinus Pinea;45.10439580459613;1.9294735416769981;1583794800000;;Origin;Rootstock;Variety
+398;Pinus Pinea;45.1044211;1.92951451;1602323340717;planted march 2020;Origin;Rootstock;Variety
+399;Pinus Pinea;45.10443053;1.92958459;1602323491806;planted march 2020;Origin;Rootstock;Variety
+400;Robinia Psuedoacacia;45.10450955;1.92967138;1602323591628;;Origin;Rootstock;Variety
+401;Acacia Dealbata;45.10458249;1.92965936;1602323627163;;Origin;Rootstock;Variety
+402;Pinus Pinea;45.10461708;1.9296635;1602323649477;planted march 2020;Origin;Rootstock;Variety
+403;Elaeagnus Umbellata;45.10470249396229;1.929629445075989;1602323707804;;Origin;Rootstock;Variety
+404;Acacia Dealbata;45.10482951;1.92969454;1602323741262;;Origin;Rootstock;Variety
+405;Robinia Psuedoacacia;45.10487583;1.92972654;1602323788493;;Origin;Rootstock;Variety
+406;Pinus Pinea;45.10489519;1.92976023;1602323808441;planted march 2020;Origin;Rootstock;Variety
+407;Robinia Psuedoacacia;45.10508455;1.92968162;1602324372520;;Origin;Rootstock;Variety
+408;Robinia Psuedoacacia;45.10500417;1.92962077;1602324394675;;Origin;Rootstock;Variety
+409;Juglans nigra;45.10485346;1.92941475;1602325359350;self seeded summer 2020;Origin;Rootstock;Variety
+410;Acacia Dealbata;45.10485731;1.92943778;1602325380775;;Origin;Rootstock;Variety
+411;Prunus Persica;45.10493321982995;1.9296183809638021;1602326298993;planted march 2020;Origin;Rootstock;Variety
+413;Prunus avium;45.1049102656059;1.9297062233090403;1602326681107;k5 cherry rootstock;Origin;Rootstock;Variety
+414;Elaeagnus Umbellata;45.10484365;1.92910711;1602333109441;;Origin;Rootstock;Variety
+415;Prunus Cerasifera;45.10490169;1.92973608;1602333825118;planted march 2020;Origin;Rootstock;Variety
+416;Corylus maxima;45.10482371;1.92949586;1602334406469;plant 18 in spreadsheet;Origin;Rootstock;Variety
+417;Corylus maxima;45.10481556;1.92952334;1602334508297;plant 18 in spreadsheet;Origin;Rootstock;Variety
+418;Corylus maxima;45.10478466;1.92952492;1602334641326;plant 19 in spreadsheet;Origin;Rootstock;Variety
+419;Corylus maxima;45.1048194;1.92955774;1602334780114;Webb's Cobb, bought in;Origin;Rootstock;Variety
+420;Corylus maxima;45.10479763;1.92952996;1602334903126;hazel, probably from seed like the one close by but may be layered from a Cobb on the allotment;Origin;Rootstock;Variety
+421;Prunus Domestica;45.10478186;1.92946888;1602335243529;probably bought in at Julien a;Origin;Rootstock;Variety
+422;Prunus Domestica;45.10477317;1.92947933;1602335314832;probably bought in at Julien a;Origin;Rootstock;Variety
+423;Prunus Domestica;45.10475818;1.92946795;1602335394951;probably bought in at Julien a;Origin;Rootstock;Variety
+425;Mespilus germanica;45.10475177;1.92934156;1602336446913;medlar;Origin;Rootstock;Variety
+426;Acacia Dealbata;45.10475319;1.92956908;1602339405989;;Origin;Rootstock;Variety
+427;Elaeagnus Umbellata;45.10467103;1.92956254;1602339445010;;Origin;Rootstock;Variety
+428;Schisandra chinensis;45.10457818;1.92940421;1602280800000;magnolia vine, from seed 71. needs support planted October 2020;Origin;Rootstock;Variety
+429;Robinia Psuedoacacia;45.10450308;1.92944707;1602280800000;;Origin;Rootstock;Variety
+430;Robinia Psuedoacacia;45.10454202;1.92950396;1602341056544;;Origin;Rootstock;Variety
+431;Prunus Cerasifera;45.10461185;1.92957753;1602341863097;from bought in stock, originally planned at top of allotment;Origin;Rootstock;Variety
+432;Robinia Psuedoacacia;45.10492822;1.92793259;1602414239007;;Origin;Rootstock;Variety
+433;diospyros virginiana;45.10498141;1.92790097;1602414283594;Persimmon;Origin;Rootstock;Variety
+434;Elaeagnus Umbellata;45.10498207;1.92787887;1602414313830;;Origin;Rootstock;Variety
+435;morus alba;45.10494493;1.92787049;1602414369431;White mulberry from seed 31;Origin;Rootstock;Variety
+436;morus alba;45.10482659;1.92786096;1602414389721;White mulberry from seed 31;Origin;Rootstock;Variety
+437;Robinia Psuedoacacia;45.10496663;1.927891;1602414422282;;Origin;Rootstock;Variety
+438;diospyros virginiana;45.1049273;1.92788181;1602414445864;Persimmon;Origin;Rootstock;Variety
+439;Elaeagnus Umbellata;45.10491049;1.92789498;1602414467872;;Origin;Rootstock;Variety
+440;Robinia Psuedoacacia;45.10485285;1.92788025;1602414488832;;Origin;Rootstock;Variety
+441;diospyros virginiana;45.10476243;1.92786634;1602414508594;Persimmon;Origin;Rootstock;Variety
+442;Elaeagnus Umbellata;45.10477151;1.92786586;1602414545520;from seed 10;Origin;Rootstock;Variety
+443;Punica Granatum;45.10468012;1.92790399;1602414675764;plant 21, cutting from original trees in greenhouse;Origin;Rootstock;Variety
+444;diospyros virginiana;45.1046111;1.92789172;1602414744658;Persimmon;Origin;Rootstock;Variety
+445;Acacia Dealbata;45.10452387;1.92788806;1602414777499;;Origin;Rootstock;Variety
+446;diospyros virginiana;45.10451179;1.92791309;1602414819576;Persimmon;Origin;Rootstock;Variety
+447;Prunus Armeniaca;45.10449096;1.92789852;1602414843662;from seed 66;Origin;Rootstock;Variety
+448;Elaeagnus Umbellata;45.10447504;1.92790179;1602414866606;;Origin;Rootstock;Variety
+449;Elaeagnus Umbellata;45.1044548;1.92791529;1602414876588;;Origin;Rootstock;Variety
+450;amélanchier;45.1043526;1.92794696;1602414938242;amélanchier?;Origin;Rootstock;Variety
+451;Prunus Armeniaca;45.10438961;1.92794658;1602414961740;;Origin;Rootstock;Variety
+452;Elaeagnus Umbellata;45.10439014;1.92794714;1602414985144;;Origin;Rootstock;Variety
+453;Elaeagnus Umbellata;45.10438105;1.92793866;1602415002599;from seed 10;Origin;Rootstock;Variety
+454;Robinia Psuedoacacia;45.10436834;1.92792053;1602415017504;;Origin;Rootstock;Variety
+455;Zanthoxylum Schinifolium;45.10425469;1.92871674;1602415616522;;Origin;Rootstock;Variety
+456;Robinia Psuedoacacia;45.1042049;1.92870655;1602415628927;;Origin;Rootstock;Variety
+457;Malus domestica;45.10418789;1.92863905;1602415655133;;Origin;Rootstock;Bramley
+458;Pyrus Bretschneideri;45.1042718;1.92865854;1602415677430;;Origin;Rootstock;
+459;Pyrus Bretschneideri;45.10430284;1.92864239;1602415685919;;Origin;Rootstock;
+460;Pyrus Bretschneideri;45.1043246;1.92860323;1602415692085;;Origin;Rootstock;
+461;Pyrus Bretschneideri;45.10438773;1.92861319;1602415701411;;Origin;Rootstock;
+462;Elaeagnus Umbellata;45.10436941;1.92863599;1602415712888;;Origin;Rootstock;
+463;Malus domestica;45.10432238;1.92865864;1602415825464;;Origin;M26;Bramley
+464;Malus domestica;45.10435865;1.92865459;1602415894635;;Origin;M26;Queens Cox, peasgood nonsuch
+465;Malus domestica;45.10437199;1.9286555;1602415919671;;Origin;M26;Queens Cox
+466;Malus domestica;45.10435888;1.92862524;1602415940899;;Origin;M26;
+467;Malus domestica;45.10443051;1.9286119;1602415970526;;Origin;M26;glowing heart (red)
+468;Malus domestica;45.10448098;1.9286243;1602416034248;;Origin;M26;reinette hernault
+469;Malus domestica;45.10449975;1.92863109;1602416049541;;Origin;M26;
+470;Malus domestica;45.10451849;1.92868026;1602416085754;;Origin;M26;
+471;Pyrus Bretschneideri;45.10451848;1.92874126;1602416121633;;Origin;;from seed 45
+472;Pyrus Bretschneideri;45.10454349;1.92870506;1602416129889;;Origin;;from seed 45
+473;Elaeagnus Umbellata;45.10454267;1.92866199;1602416163804;;Origin;;
+474;Pyrus Bretschneideri;45.10447312;1.92870841;1602416199618;from seed 45;Origin;;
+475;Pyrus Bretschneideri;45.10444424;1.92862724;1602416214842;from seed 45;Origin;;
+476;Pyrus Bretschneideri;45.1044235;1.92871869;1602416229848;from seed 45;Origin;;
+477;Robinia Psuedoacacia;45.104455;1.9287076;1602416247200;;Origin;;
+478;Elaeagnus Umbellata;45.10442596;1.92868844;1602416275439;from seed 10;Origin;;
+479;Malus domestica;45.10440904;1.92868677;1602416298659;;Origin;M26;
+480;morus alba;45.10454634;1.92893311;1602416554205;White mulberry;Origin;Rootstock;Variety

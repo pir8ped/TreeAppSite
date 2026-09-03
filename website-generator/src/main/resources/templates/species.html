@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Species & Fruiting Guide</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            🌳 Tree Dashboard
+        </a>
+        <nav>
+            <a href="index.html">Dashboard</a>
+            <div class="dropdown">
+                <a href="#">Collections ▾</a>
+                <div class="dropdown-content">
+                    <a th:each="col : ${collections}"
+                       th:href="'collection_' + ${col.id} + '.html'"
+                       th:text="${col.name}">Collection Name</a>
+                </div>
+            </div>
+            <a href="species.html" class="active">Species & Fruiting</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <div class="page-header">
+        <h1 class="page-title">Species Reference & Fruiting Guide</h1>
+        <p class="page-subtitle">Botanical information, harvest times, and characteristics for recorded tree species.</p>
+    </div>
+
+    <div class="table-card">
+        <div class="table-header-controls">
+            <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary-dark);">Species Database</h2>
+            <input type="text" id="speciesSearch" class="search-input" placeholder="🔍 Search Species..." onkeyup="filterSpecies()">
+        </div>
+        <table id="speciesTable">
+            <thead>
+                <tr>
+                    <th>English / Common Name</th>
+                    <th>Botanical Name (Latin)</th>
+                    <th>Fruiting Start</th>
+                    <th>Fruiting Details & Characteristics</th>
+                    <th>French / Other Names</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="s : ${speciesList}">
+                    <td>
+                        <strong style="font-size: 1.05rem;" th:text="${s.displayName}">Apple</strong>
+                    </td>
+                    <td>
+                        <em style="color: var(--text-muted);" th:text="${s.latinName}">Malus domestica</em>
+                    </td>
+                    <td>
+                        <span th:if="${s.fruitingMonthName != null and !s.fruitingMonthName.isEmpty()}"
+                              class="badge" style="background-color: #e0f2fe; color: #0369a1;"
+                              th:text="${s.fruitingMonthName}">August</span>
+                        <span th:if="${s.fruitingMonthName == null or s.fruitingMonthName.isEmpty()}" style="color: var(--text-muted);">—</span>
+                    </td>
+                    <td>
+                        <div th:if="${s.fruitingDescription != null and !s.fruitingDescription.isEmpty()}" th:text="${s.fruitingDescription}">Late season</div>
+                        <div th:if="${s.characteristics != null and !s.characteristics.isEmpty()}" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;" th:text="${s.characteristics}">Deciduous fruit tree</div>
+                        <div th:if="${(s.fruitingDescription == null or s.fruitingDescription.isEmpty()) and (s.characteristics == null or s.characteristics.isEmpty())}" style="color: var(--text-muted);">—</div>
+                    </td>
+                    <td>
+                        <div th:if="${s.frenchName != null and !s.frenchName.isEmpty()}" th:text="'FR: ' + ${s.frenchName}">Pommier</div>
+                        <div th:if="${s.otherNames != null and !s.otherNames.isEmpty()}" style="font-size: 0.85rem; color: var(--text-muted);" th:text="${s.otherNames}">Wild Apple</div>
+                        <div th:if="${(s.frenchName == null or s.frenchName.isEmpty()) and (s.otherNames == null or s.otherNames.isEmpty())}" style="color: var(--text-muted);">—</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <p>Tree Collection Archive &bull; Non-editable snapshot generated from TreeApp &bull; Powered by Leaflet & SQLite</p>
+</footer>
+
+<script>
+    function filterSpecies() {
+        const input = document.getElementById("speciesSearch");
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById("speciesTable");
+        const tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+            let rowText = tr[i].textContent || tr[i].innerText;
+            if (rowText.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

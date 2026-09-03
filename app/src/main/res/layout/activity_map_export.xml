@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Live satellite map for framing the export area -->
+    <fragment
+        android:id="@+id/export_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Controls panel -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F5F5F5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Paper size -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paper size"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#333333" />
+
+            <RadioGroup
+                android:id="@+id/rg_paper_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <RadioButton
+                    android:id="@+id/rb_a3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A3  (297 × 420 mm)"
+                    android:checked="true"
+                    android:layout_marginEnd="24dp" />
+
+                <RadioButton
+                    android:id="@+id/rb_a2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A2  (420 × 594 mm)" />
+
+            </RadioGroup>
+
+            <!-- Orientation -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orientation"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:layout_marginTop="12dp" />
+
+            <RadioGroup
+                android:id="@+id/rg_orientation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <RadioButton
+                    android:id="@+id/rb_landscape"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Landscape"
+                    android:checked="true"
+                    android:layout_marginEnd="24dp" />
+
+                <RadioButton
+                    android:id="@+id/rb_portrait"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Portrait" />
+
+            </RadioGroup>
+
+            <!-- Status text -->
+            <TextView
+                android:id="@+id/tv_export_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pan and zoom the map above to frame your orchard, then tap Generate."
+                android:textSize="13sp"
+                android:textColor="#555555"
+                android:layout_marginTop="10dp" />
+
+            <!-- Generate button -->
+            <Button
+                android:id="@+id/btn_generate_pdf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Generate PDF"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_button"
+                android:textColor="@android:color/white"
+                android:padding="14dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

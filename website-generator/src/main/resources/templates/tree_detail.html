@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Tree Details</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+        <a href="../index.html" class="logo">
+            🌳 Tree Dashboard
+        </a>
+        <nav>
+            <a href="../index.html">Dashboard</a>
+            <div class="dropdown">
+                <a href="#">Collections ▾</a>
+                <div class="dropdown-content">
+                    <a th:each="col : ${collections}"
+                       th:href="'../collection_' + ${col.id} + '.html'"
+                       th:text="${col.name}">Collection Name</a>
+                </div>
+            </div>
+            <a href="../species.html">Species & Fruiting</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <div class="page-header">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+                <a th:if="${tree.collectionId != null}"
+                   th:href="'../collection_' + ${tree.collectionId} + '.html'"
+                   style="color: var(--primary-color); font-weight: 600; text-decoration: none; font-size: 0.95rem;">
+                    ← Back to <span th:text="${tree.collectionName}">Collection</span>
+                </a>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap;">
+            <h1 class="page-title" style="margin-bottom: 0;">
+                <span th:if="${tree.label != null and !tree.label.isEmpty()}" th:text="'[' + ${tree.label} + '] '">[T1] </span>
+                <span th:text="${tree.displayName}">Apple</span>
+            </h1>
+            <span th:class="'badge badge-' + ${#strings.toLowerCase(tree.status)}" th:text="${tree.status}">verified</span>
+        </div>
+        <p class="page-subtitle" style="font-style: italic;" th:text="${tree.latinName}">Malus domestica</p>
+    </div>
+
+    <div class="detail-grid">
+        <!-- Left Column: Attributes, Photos, Scions, Notes -->
+        <div>
+            <!-- Primary Info Card -->
+            <div class="card">
+                <div class="card-title">Tree Information</div>
+                <div class="attribute-list">
+                    <div class="attr-item">
+                        <div class="attr-label">Variety</div>
+                        <div class="attr-value" th:text="${tree.variety != null and !tree.variety.isEmpty()} ? ${tree.variety} : 'Not specified'">Bramley</div>
+                    </div>
+                    <div class="attr-item">
+                        <div class="attr-label">Rootstock</div>
+                        <div class="attr-value" th:text="${tree.rootstock != null and !tree.rootstock.isEmpty()} ? ${tree.rootstock} : 'Not specified'">M26</div>
+                    </div>
+                    <div class="attr-item">
+                        <div class="attr-label">Date Planted</div>
+                        <div class="attr-value" th:text="${tree.datePlanted != null} ? ${#dates.format(tree.datePlanted, 'MMMM dd, yyyy')} : 'Not specified'">April 12, 2022</div>
+                    </div>
+                    <div class="attr-item">
+                        <div class="attr-label">Origin / Source</div>
+                        <div class="attr-value" th:text="${tree.origin != null and !tree.origin.isEmpty()} ? ${tree.origin} : 'Not specified'">Local Nursery</div>
+                    </div>
+                    <div class="attr-item" th:if="${tree.located != null and !tree.located.isEmpty()}">
+                        <div class="attr-label">Physical Location</div>
+                        <div class="attr-value" th:text="${tree.located}">North Orchard Row 2</div>
+                    </div>
+                    <div class="attr-item">
+                        <div class="attr-label">Collection</div>
+                        <div class="attr-value" th:text="${tree.collectionName}">Main Orchard</div>
+                    </div>
+                </div>
+
+                <!-- Fruiting info -->
+                <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border-color);"
+                     th:if="${tree.fruitingDescription != null and !tree.fruitingDescription.isEmpty()}">
+                    <div class="attr-label">Fruiting Characteristics</div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;" th:text="${tree.fruitingDescription}">Late season cooking apple, ready for harvest in October.</p>
+                </div>
+            </div>
+
+            <!-- Photos Gallery -->
+            <div class="card">
+                <div class="card-title" th:text="'Photo Gallery (' + ${tree.images != null ? tree.images.size() : 0} + ')'">Photo Gallery</div>
+                <div th:if="${tree.images == null or tree.images.isEmpty()}" style="color: var(--text-muted); font-size: 0.95rem;">
+                    No photos recorded for this tree yet.
+                </div>
+                <div class="photo-gallery" th:if="${tree.images != null and !tree.images.isEmpty()}">
+                    <div class="photo-card" th:each="img : ${tree.images}">
+                        <a th:href="'../images/' + ${img.imageUrlOrFileName}" target="_blank">
+                            <img th:src="'../images/' + ${img.imageUrlOrFileName}" alt="Tree photo" loading="lazy">
+                        </a>
+                        <div class="photo-meta">
+                            <div class="photo-date" th:if="${img.dateTaken != null}" th:text="${#dates.format(img.dateTaken, 'MMM dd, yyyy')}">Aug 20, 2023</div>
+                            <div class="photo-caption" th:if="${img.caption != null and !img.caption.isEmpty()}" th:text="${img.caption}">Photo caption</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attached Scions -->
+            <div class="card" th:if="${tree.scions != null and !tree.scions.isEmpty()}">
+                <div class="card-title">Grafted Scions</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Species</th>
+                            <th>Variety</th>
+                            <th>Source</th>
+                            <th>Fruiting Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="scion : ${tree.scions}">
+                            <td th:text="${scion.species}">Apple</td>
+                            <td th:text="${scion.variety != null ? scion.variety : '—'}">Discovery</td>
+                            <td th:text="${scion.source != null ? scion.source : '—'}">Heritage orchard</td>
+                            <td th:text="${scion.fruitingDescription != null ? scion.fruitingDescription : '—'}">Early August</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Notes Timeline -->
+            <div class="card">
+                <div class="card-title">Observation Notes</div>
+                <div th:if="${tree.notes == null or tree.notes.isEmpty()}" style="color: var(--text-muted); font-size: 0.95rem;">
+                    No written notes for this tree yet.
+                </div>
+                <div class="timeline" th:if="${tree.notes != null and !tree.notes.isEmpty()}">
+                    <div class="timeline-item" th:each="note : ${tree.notes}">
+                        <div class="timeline-date" th:text="${note.dateWritten != null ? #dates.format(note.dateWritten, 'MMMM dd, yyyy') : 'No date'}">March 15, 2023</div>
+                        <div class="timeline-text" th:text="${note.description}">Pruned top branches and added mulch.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Satellite Mini-Map -->
+        <div>
+            <div class="card" style="position: sticky; top: 5.5rem;">
+                <div class="card-title">GPS Location</div>
+                <div th:if="${tree.location != null}">
+                    <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                        <strong>Latitude:</strong> <span th:text="${tree.location.latitude}">51.505</span><br>
+                        <strong>Longitude:</strong> <span th:text="${tree.location.longitude}">-0.09</span>
+                    </div>
+                    <div id="mini-map"></div>
+                </div>
+                <div th:if="${tree.location == null}" style="color: var(--text-muted); font-size: 0.95rem;">
+                    No GPS location recorded for this tree.
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Tree Collection Archive &bull; Non-editable snapshot generated from TreeApp &bull; Powered by Leaflet & SQLite</p>
+</footer>
+
+<script th:inline="javascript" th:if="${treeJson != null}">
+    const treeData = /*[[${treeJson}]]*/ '[]';
+    const parsed = JSON.parse(treeData);
+
+    if (parsed && parsed.length > 0) {
+        const t = parsed[0];
+        const miniMap = L.map('mini-map', {
+            center: [t.latitude, t.longitude],
+            zoom: 18,
+            scrollWheelZoom: false
+        });
+
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 20,
+            attribution: 'Esri Satellite'
+        }).addTo(miniMap);
+
+        L.circleMarker([t.latitude, t.longitude], {
+            radius: 9,
+            fillColor: t.colorHex || '#4CAF50',
+            color: '#ffffff',
+            weight: 2.5,
+            opacity: 1,
+            fillOpacity: 1
+        }).addTo(miniMap)
+          .bindPopup(`<strong>${t.label || ''} ${t.englishName || t.latinName}</strong>`)
+          .openPopup();
+    }
+</script>
+
+</body>
+</html>

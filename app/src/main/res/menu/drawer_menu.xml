@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/StartActivity"
+        android:title="Collections"
+        />
+    <item
+        android:id="@+id/ScionListActivity"
+        android:title="Scions"
+        />
+    <item
+        android:id="@+id/SearchSpeciesActivity"
+        android:title="List a new tree"
+        />
+    <item
+        android:id="@+id/AddExistingTreeActivity"
+        android:title="Add existing tree"
+        />
+    <item
+        android:id="@+id/TreeToPlantListActivity"
+        android:title="Trees to plant"
+        />
+    <item
+        android:id="@+id/PlantedTreeListActivity"
+        android:title="Planted trees"
+        />
+    <item
+        android:id="@+id/findTree"
+        android:title="Find a tree"
+        />
+    <item
+        android:id="@+id/MapViewActivity"
+        android:title="View map"
+        />
+    <item
+        android:id="@+id/ReminderListActivity"
+        android:title="Reminders"
+        />
+    <item
+        android:id="@+id/BackupRestoreActivity"
+        android:title="Backup/Restore"
+        />
+    <item
+        android:id="@+id/SearchNotesActivity"
+        android:icon="@drawable/ic_search"
+        android:title="Search Notes" />
+    <item
+        android:id="@+id/nav_calibrate_gps"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        android:title="Calibrate GPS" />
+</menu>

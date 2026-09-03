@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <!-- For Android 13+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!-- Camera permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:requestLegacyExternalStorage="true"
+        android:preserveLegacyExternalStorage="true">
+        
+        <!-- FileProvider for sharing photos -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.john.TreeApp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".StartActivity"
+            android:theme="@style/AppTheme"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SearchSpeciesActivity" />
+        <activity android:name=".AddExistingTreeActivity" />
+        <activity android:name=".ListATreeToPlantActivity" />
+        <activity android:name=".ListAScionActivity" />
+        <activity android:name=".ScionListActivity" />
+        <activity android:name=".TreeToPlantListActivity" />
+        <activity android:name=".PlantNowActivity" />
+        <activity android:name=".EditTreeActivity" />
+        <activity android:name=".FindTreeActivity" />
+        <activity android:name=".PlantedTreeListActivity" />
+        <activity
+            android:name=".MapViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MapExportActivity"
+            android:label="Export Map to PDF"
+            android:exported="false" />
+        <activity
+            android:name=".GPSCalibrationActivity"
+            android:label="GPS Calibration"
+            android:exported="false" />
+        <activity
+            android:name=".CalibrationRecordActivity"
+            android:label="Calibration Recording"
+            android:exported="false" />
+        <activity
+            android:name=".BackupRestoreActivity"
+            android:label="Backup/Restore"
+            android:exported="false" />
+        <activity android:name=".SearchNotesActivity"
+            android:label="Search Notes"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".ReminderListActivity"
+            android:label="Reminders"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC6MTM_wygL2hHHcgERdB-jHeoW9os9WbM" />
+
+    </application>
+</manifest>

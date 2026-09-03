@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-files-path
+        name="tree_images"
+        path="Pictures/Trees/" />
+    
+    <!-- For sharing from app's cache (content:// URIs copied to cache) -->
+    <cache-path name="backup_cache" path="." />
+    
+    <!-- For sharing from Environment.DIRECTORY_DOCUMENTS/TreeAppBackups -->
+    <external-path name="external_docs" path="Documents/TreeAppBackups" />
+    
+    <!-- For sharing from legacy app-specific dir -->
+    <external-files-path name="legacy_backups" path="TreeAppBackups" />
+</paths> 

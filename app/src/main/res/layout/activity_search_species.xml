@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A simple vertical layout for the search page -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Page header -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:text="Choose Your Tree Species"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+    <!-- Toggle for selecting the search mode -->
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/search_mode_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        app:singleSelection="true">
+
+        <Button
+            android:id="@+id/toggle_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:checked="true"
+            style="?attr/materialButtonOutlinedStyle" />
+
+        <Button
+            android:id="@+id/toggle_latin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latin"
+            style="?attr/materialButtonOutlinedStyle" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <!-- Search input field -->
+    <EditText
+        android:id="@+id/search_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Type an English name..."
+        android:layout_marginBottom="8dp"
+        android:inputType="text" />
+
+    <!-- Suggestions dropdown (Spinner) -->
+    <TextView
+        android:id="@+id/selected_species_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:visibility="gone"
+        android:background="#E8F5E9"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/suggestion_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="#FFFFFF"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="0.5dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:clipToPadding="false" />
+
+        <TextView
+            android:id="@+id/empty_list_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Type 3 or more characters to search"
+            android:textColor="#757575"
+            android:visibility="visible" />
+
+    </FrameLayout>
+
+    <!-- **New Button to clear search** -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btn_clear_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Clear"
+            android:visibility="gone"
+            android:layout_marginEnd="8dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+        <!-- A button to confirm selection (or proceed) -->
+        <Button
+            android:id="@+id/btn_select_species"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Select Species" />
+
+    </LinearLayout>
+
+</LinearLayout>

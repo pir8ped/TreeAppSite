@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="green">#247b5b</color>
+    <color name="darkGreen">#19563f</color>
+    <color name="darkestGreen">#0f3325</color>
+    <color name="blue">#4a8b99</color>
+    <color name="darkerBlue">#386771</color>
+    <color name="darkestBlue">#27484f</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="selected_bg">#2196F3</color>
+    <color name="unselected_bg">#EEEEEE</color>
+    <color name="selected_stroke">#0D47A1</color>
+    <color name="selector_toggle_text">#FFFFFF</color>
+    <color name="selected_item_background">#1A2196F3</color>
+    <color name="colorPrimary">@color/green</color>
+    <color name="colorPrimaryDark">@color/darkGreen</color>
+    <color name="colorAccent">@color/blue</color>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_edit_basic_info"
+        android:title="Edit Basic Info" />
+    <item
+        android:id="@+id/action_add_scion"
+        android:title="Add Scion" />
+    <item
+        android:id="@+id/action_plant_another"
+        android:title="Plant Another" />
+    <item
+        android:id="@+id/action_move_collection"
+        android:title="Move to Collection" />
+    <item
+        android:id="@+id/action_delete"
+        android:title="Delete" />
+</menu>

@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.tree'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+    implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.slf4j:slf4j-simple:2.0.12'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+application {
+    mainClass = 'com.tree.SiteGenerator'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.register('sampleData', JavaExec) {
+    group = 'application'
+    description = 'Generates a sample SQLite database for testing'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.tree.SampleDataGenerator'
+}
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_calibrate_gps"
+        android:title="Calibrate GPS"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_gps_settings"
+        android:title="GPS Settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_create_map"
+        android:title="Create Map…"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,17 @@
+<!-- res/layout/suggestion_item_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- res/layout/suggestion_item_layout.xml -->
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/suggestion_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:lineSpacingExtra="4sp"
+        android:padding="8dp" />
+
+</LinearLayout>

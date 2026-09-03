@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Container for LocationFragment -->
+    <FrameLayout
+        android:id="@+id/location_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Display the tree names -->
+    <TextView
+        android:id="@+id/tv_english_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="English Name"
+        android:textSize="20sp"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tv_latin_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Latin Name"
+        android:textSize="20sp"
+        android:layout_marginTop="4dp" />
+
+    <!-- Display Variety name, Rootstock, Origin -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Variety"
+        android:layout_marginTop="4dp" />
+
+    <EditText
+        android:id="@+id/tv_variety"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EFEFEF"
+        android:padding="8dp"
+        android:hint="Enter variety"
+        android:minHeight="48dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rootstock"
+        android:layout_marginTop="4dp" />
+
+    <EditText
+        android:id="@+id/tv_rootstock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EFEFEF"
+        android:padding="8dp"
+        android:hint="Enter rootstock"
+        android:minHeight="48dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Origin"
+        android:layout_marginTop="4dp" />
+
+    <EditText
+        android:id="@+id/tv_origin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EFEFEF"
+        android:padding="8dp"
+        android:hint="Enter origin"
+        android:minHeight="48dp" />
+
+    <!-- Input for Label -->
+    <EditText
+        android:id="@+id/et_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Enter label here"
+        android:minHeight="48dp" />
+
+    <!-- (Optional) A button to confirm planting now -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp">
+
+        <Button
+            android:id="@+id/btn_start_planting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start planting"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btn_finished"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Finished"
+            android:visibility="gone"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+</LinearLayout>

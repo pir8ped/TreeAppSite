@@ -1,0 +1,33 @@
+<resources>
+
+    <style name="CustomNavText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#000</item>
+    </style>
+    <!-- Style for Function Buttons -->
+    <style name="FunctionButtonStyle" parent="Widget.AppCompat.Button">
+        <!-- Customize background, text size, color, padding, etc. -->
+        <item name="android:background">@drawable/btn_function_background</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Style for Action Buttons -->
+    <style name="ActionButtonStyle" parent="Widget.AppCompat.Button">
+        <!-- A different background and maybe a larger text size -->
+        <item name="android:background">@drawable/btn_action_background</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:stateListAnimator">@animator/button_state_animator</item>
+    </style>
+</resources>
