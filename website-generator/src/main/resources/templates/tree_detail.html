@@ -101,8 +101,8 @@
                 </div>
                 <div class="photo-gallery" th:if="${tree.images != null and !tree.images.isEmpty()}">
                     <div class="photo-card" th:each="img : ${tree.images}">
-                        <a th:href="'../images/' + ${img.imageUrlOrFileName}" target="_blank">
-                            <img th:src="'../images/' + ${img.imageUrlOrFileName}" alt="Tree photo" loading="lazy">
+                        <a th:href="${r2BaseUrl + '/' + #strings.arraySplit(img.imageUrlOrFileName, '/')[#strings.arraySplit(img.imageUrlOrFileName, '/').length - 1]}" target="_blank">
+                            <img th:src="${r2BaseUrl + '/' + #strings.arraySplit(img.imageUrlOrFileName, '/')[#strings.arraySplit(img.imageUrlOrFileName, '/').length - 1]}" alt="Tree photo" loading="lazy">
                         </a>
                         <div class="photo-meta">
                             <div class="photo-date" th:if="${img.dateTaken != null}" th:text="${#dates.format(img.dateTaken, 'MMM dd, yyyy')}">Aug 20, 2023</div>

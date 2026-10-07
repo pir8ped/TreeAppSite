@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.john.TreeApp.beans.Location;
 import com.john.TreeApp.beans.utilBean.TreeForMap;
 import com.john.TreeApp.views.LegendView;
+import com.john.TreeApp.adapters.PhotoAdapter;
 import androidx.core.content.ContextCompat;
 
 import java.io.File;
@@ -70,8 +72,6 @@ import com.bumptech.glide.request.transition.Transition;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-import gps.GPSCalibrationManager;
-import gps.ReferencePoint;
 
 public class MapViewActivity extends BaseActivity implements OnMapReadyCallback {
     private static final String TAG = "MapViewActivity";
@@ -157,14 +157,14 @@ public class MapViewActivity extends BaseActivity implements OnMapReadyCallback 
     protected void onResume() {
         super.onResume();
         if (isCompassMode) startCompassUpdates();
-        startCorrectedPositionTracking();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         stopCompassUpdates();
-        stopCorrectedPositionTracking();
+
     }
 
     @Override
@@ -186,13 +186,7 @@ public class MapViewActivity extends BaseActivity implements OnMapReadyCallback 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_calibrate_gps) {
-            showCalibrateDialog();
-            return true;
-        } else if (id == R.id.action_gps_settings) {
-            startActivity(new Intent(this, GPSCalibrationActivity.class));
-            return true;
-        } else if (id == R.id.action_create_map) {
+         if (id == R.id.action_create_map) {
             showCreateMapDialog();
             return true;
         }
@@ -217,7 +211,6 @@ public class MapViewActivity extends BaseActivity implements OnMapReadyCallback 
     // ─────────────────────────────────────────────────────────────────────────
     // Map ready
     // ─────────────────────────────────────────────────────────────────────────
-
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
@@ -235,26 +228,68 @@ public class MapViewActivity extends BaseActivity implements OnMapReadyCallback 
                     REQUEST_LOCATION_PERMISSION);
         } else {
             enableMyLocation();
-            // Center on device location, then load trees
-            FusedLocationProviderClient flc = LocationServices.getFusedLocationProviderClient(this);
-            flc.getLastLocation().addOnSuccessListener(this, loc -> {
-                if (loc != null) {
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(loc.getLatitude(), loc.getLongitude()), 18f));
-                }
-                loadAllTreesOnMap();
-            });
         }
+
+        // Load trees and position camera according to collection bounds vs phone location
+        loadAllTreesOnMap();
 
         setupMarkerClickListeners();
         setupInfoWindowAdapter();
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Load trees from ALL collections
-    // ─────────────────────────────────────────────────────────────────────────
+    /**
+     * Positions camera:
+     * - If phone is within collection bounds -> centers on current phone location
+     * - If phone is outside collection bounds (or location unavailable) -> centers on center of current collection
+     */
+    private void positionCameraForCurrentCollection(int collectionId, LatLngBounds collectionBounds, boolean hasSelection, LatLngBounds selectionBounds) {
+        if (mMap == null) return;
 
-    private List<TreeForMap> allTrees = new ArrayList<>();
+        // 1. If trees were explicitly pre-selected, focus on them
+        if (hasSelection && selectionBounds != null) {
+            try {
+                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(selectionBounds, 200));
+            } catch (Exception ignored) {}
+            return;
+        }
+
+        // 2. If no collection bounds exist, nothing to center on
+        if (collectionBounds == null) return;
+
+        LatLng collectionCenter = collectionBounds.getCenter();
+
+        // 3. Query device location
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            FusedLocationProviderClient flc = LocationServices.getFusedLocationProviderClient(this);
+            flc.getLastLocation().addOnSuccessListener(this, loc -> {
+                if (loc != null) {
+                    LatLng phoneLatLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+
+                    // Add a small 0.0005 deg (~50m) buffer so standing at the gate/edge still counts as inside
+                    double margin = 0.0005;
+                    LatLngBounds bufferedBounds = new LatLngBounds(
+                            new LatLng(collectionBounds.southwest.latitude - margin, collectionBounds.southwest.longitude - margin),
+                            new LatLng(collectionBounds.northeast.latitude + margin, collectionBounds.northeast.longitude + margin)
+                    );
+
+                    if (bufferedBounds.contains(phoneLatLng)) {
+                        Log.d(TAG, "Phone is WITHIN collection bounds. Centering on phone: " + phoneLatLng);
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(phoneLatLng, 18f));
+                    } else {
+                        Log.d(TAG, "Phone is OUTSIDE collection bounds. Centering on collection center: " + collectionCenter);
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(collectionCenter, 18f));
+                    }
+                } else {
+                    Log.d(TAG, "Phone location unavailable. Centering on collection center: " + collectionCenter);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(collectionCenter, 18f));
+                }
+            }).addOnFailureListener(e -> {
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(collectionCenter, 18f));
+            });
+        } else {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(collectionCenter, 18f));
+        }
+    }
 
     private void loadAllTreesOnMap() {
         allTrees = treeDAO.getTreesForMapAllCollections();
@@ -262,21 +297,35 @@ public class MapViewActivity extends BaseActivity implements OnMapReadyCallback 
 
         if (allTrees.isEmpty()) return;
 
-        // Build species → hue colour map (assignment order = first encounter)
         buildSpeciesColourMap(allTrees);
 
-        // Place markers
-        LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();
+        // Resolve current collection ID
+        int selectedColId = getIntent().getIntExtra("collectionId", -1);
+        if (selectedColId == -1) {
+            selectedColId = new CollectionDAOImpl().getSelectedCollectionId();
+        }
+        currentCollectionId = selectedColId;
 
-        // Handle optional pre-selected tree IDs (passed from other activities)
         ArrayList<Integer> selectedTreeIds = getIntent().getIntegerArrayListExtra("SELECTED_TREE_IDS");
         boolean hasSelection = selectedTreeIds != null && !selectedTreeIds.isEmpty();
 
+        LatLngBounds.Builder selectionBoundsBuilder = new LatLngBounds.Builder();
+        LatLngBounds.Builder collectionBoundsBuilder = new LatLngBounds.Builder();
+        int treesInCurrentCollection = 0;
+
         for (TreeForMap tree : allTrees) {
             LatLng latLng = new LatLng(tree.getLatitude(), tree.getLongitude());
-            boundsBuilder.include(latLng);
+
+            // Track bounds for current collection
+            if (tree.getCollectionId() == currentCollectionId) {
+                collectionBoundsBuilder.include(latLng);
+                treesInCurrentCollection++;
+            }
 
             boolean isSelected = hasSelection && selectedTreeIds.contains(tree.getId());
+            if (isSelected) {
+                selectionBoundsBuilder.include(latLng);
+            }
 
             MarkerOptions opts = new MarkerOptions()
                     .position(latLng)
@@ -290,26 +339,40 @@ public class MapViewActivity extends BaseActivity implements OnMapReadyCallback 
             if (marker != null) marker.setTag(tree);
         }
 
-        // Hide legend on interactive map view per user request
         if (legendView != null) {
             legendView.setVisibility(android.view.View.GONE);
         }
 
-        // Zoom to fit if we have a selection, otherwise stay at device location
-        if (hasSelection) {
-            try {
-                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 200));
-            } catch (Exception ignored) {}
-        }
+        LatLngBounds selectionBounds = hasSelection ? selectionBoundsBuilder.build() : null;
+        LatLngBounds collectionBounds = treesInCurrentCollection > 0 ? collectionBoundsBuilder.build() : null;
 
-        // Remember first collection seen (for edit launches)
-        currentCollectionId = new CollectionDAOImpl().getSelectedCollectionId();
+        // Apply the requested bounds centering logic
+        positionCameraForCurrentCollection(currentCollectionId, collectionBounds, hasSelection, selectionBounds);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_LOCATION_PERMISSION
+                && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            enableMyLocation();
+            // Re-evaluate camera centering with newly granted location
+            loadAllTreesOnMap();
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Load trees from ALL collections
+    // ─────────────────────────────────────────────────────────────────────────
+
+    private List<TreeForMap> allTrees = new ArrayList<>();
+
 
     // Keep backwards-compatible overload used by onActivityResult
     private void loadTreeLocations(ArrayList<Integer> selectedTreeIds) {
         if (mMap != null) mMap.clear();
-        correctedPositionMarker = null;
         allTrees.clear();
         thumbnailCache.clear();
         loadAllTreesOnMap();
@@ -505,7 +568,8 @@ public class MapViewActivity extends BaseActivity implements OnMapReadyCallback 
 
         imageLoader.execute(() -> {
             try {
-                File imgFile = new File(tree.getLatestImagePath());
+                File imgFile = PhotoAdapter.resolveImageFile(MapViewActivity.this, tree.getLatestImagePath());
+
                 Bitmap bmp = Glide.with(MapViewActivity.this)
                         .asBitmap()
                         .load(imgFile.exists() ? imgFile : tree.getLatestImagePath())
@@ -639,97 +703,8 @@ public class MapViewActivity extends BaseActivity implements OnMapReadyCallback 
         }
     }
 
-    private void startCorrectedPositionTracking() {
-        if (isTrackingCorrectedPosition) return;
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) return;
 
-        GPSCalibrationManager calibMgr = GPSCalibrationManager.getInstance(this);
-        if (!calibMgr.isCalibrationValid()) {
-            if (correctedPositionMarker != null) { correctedPositionMarker.remove(); correctedPositionMarker = null; }
-            return;
-        }
 
-        if (fusedLocationClient == null)
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        correctedPositionCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult result) {
-                if (result == null || mMap == null) return;
-                android.location.Location raw = result.getLastLocation();
-                if (raw == null) return;
-                GPSCalibrationManager cm = GPSCalibrationManager.getInstance(MapViewActivity.this);
-                if (!cm.isCalibrationValid()) { stopCorrectedPositionTracking(); return; }
-                android.location.Location corrected = cm.applyOffset(raw);
-                LatLng pos = new LatLng(corrected.getLatitude(), corrected.getLongitude());
-                if (correctedPositionMarker == null) {
-                    correctedPositionMarker = mMap.addMarker(new MarkerOptions()
-                            .position(pos).title("Corrected Position")
-                            .snippet(String.format(Locale.getDefault(), "Offset: %.1f m",
-                                    cm.getOffsetDistanceMeters()))
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                            .zIndex(2.0f));
-                } else {
-                    correctedPositionMarker.setPosition(pos);
-                    correctedPositionMarker.setSnippet(String.format(Locale.getDefault(),
-                            "Offset: %.1f m", cm.getOffsetDistanceMeters()));
-                }
-            }
-        };
 
-        LocationRequest req = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 2000)
-                .setMinUpdateDistanceMeters(0).build();
-        fusedLocationClient.requestLocationUpdates(req, correctedPositionCallback, Looper.getMainLooper());
-        isTrackingCorrectedPosition = true;
-    }
-
-    private void stopCorrectedPositionTracking() {
-        if (fusedLocationClient != null && correctedPositionCallback != null)
-            fusedLocationClient.removeLocationUpdates(correctedPositionCallback);
-        correctedPositionCallback = null;
-        isTrackingCorrectedPosition = false;
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // GPS calibration dialog
-    // ─────────────────────────────────────────────────────────────────────────
-
-    private void showCalibrateDialog() {
-        GPSCalibrationManager calibMgr = GPSCalibrationManager.getInstance(this);
-        List<ReferencePoint> refPoints = calibMgr.getReferencePoints();
-        if (refPoints.isEmpty()) {
-            new AlertDialog.Builder(this)
-                    .setTitle("No Reference Points")
-                    .setMessage("Please add reference points in GPS Settings first.")
-                    .setPositiveButton("Open Settings",
-                            (d, w) -> startActivity(new Intent(this, GPSCalibrationActivity.class)))
-                    .setNegativeButton("Cancel", null).show();
-            return;
-        }
-        String[] names = refPoints.stream().map(ReferencePoint::getName).toArray(String[]::new);
-        new AlertDialog.Builder(this)
-                .setTitle("Select Reference Point")
-                .setItems(names, (dialog, which) -> {
-                    Intent intent = new Intent(this, CalibrationRecordActivity.class);
-                    intent.putExtra(CalibrationRecordActivity.EXTRA_REF_INDEX, which);
-                    startActivity(intent);
-                })
-                .setNegativeButton("Cancel", null).show();
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Permissions
-    // ─────────────────────────────────────────────────────────────────────────
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_LOCATION_PERMISSION
-                && grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            enableMyLocation();
-        }
-    }
 }

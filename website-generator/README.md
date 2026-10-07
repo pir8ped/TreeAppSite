@@ -43,7 +43,7 @@ website-generator/
 
 1. Export your data from the Android phone app:
    - In the app, go to **Backup / Restore**.
-   - Tap any backup and select **"Export for Website (DB + Photos ZIP)"**.
+   - Tap any backup and select **"Export for website (db)"**.
 2. Copy the exported `TreeApp_Website_Export.zip` into `website-generator/data/`.
 3. In a terminal, run:
    ```bash

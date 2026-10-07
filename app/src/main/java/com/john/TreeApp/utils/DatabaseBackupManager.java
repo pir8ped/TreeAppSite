@@ -78,6 +78,66 @@ public class DatabaseBackupManager {
         Log.d(TAG, "DatabaseBackupManager initialized");
     }
 
+
+
+    /**
+     * Creates a ZIP file containing the SQLite database and tree photos directory.
+     * @param backupPath Path to the database backup or raw .db file
+     * @return File reference to the generated export ZIP
+     */
+    public File exportWebsiteZip(String backupPath) throws IOException {
+        // 1. Resolve source database file from backup path
+        File dbFile = getBackupFileForSharing(backupPath); // Or whatever method resolves the db File
+        if (dbFile == null || !dbFile.exists()) {
+            throw new IOException("Database backup file not found at path: " + backupPath);
+        }
+
+        // 2. Identify the tree photos directory
+        // Adjust this path if your photos are stored in a different directory (e.g., getExternalFilesDir(Environment.DIRECTORY_PICTURES))
+        File photosDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Trees");
+
+        // 3. Prepare destination file in internal cache
+        File exportDir = new File(context.getCacheDir(), "exports");
+        if (!exportDir.exists()) {
+            exportDir.mkdirs();
+        }
+        File zipFile = new File(exportDir, "TreeApp_Website_Export.zip");
+
+        // 4. Zip both database and photos
+        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFile))) {
+            // Add database to ZIP root as 'database.db'
+            addFileToZip(zos, dbFile, "database.db");
+        }
+
+        return zipFile;
+    }
+
+    private void addFileToZip(ZipOutputStream zos, File file, String entryName) throws IOException {
+        try (FileInputStream fis = new FileInputStream(file)) {
+            ZipEntry zipEntry = new ZipEntry(entryName);
+            zos.putNextEntry(zipEntry);
+            byte[] buffer = new byte[8192];
+            int length;
+            while ((length = fis.read(buffer)) >= 0) {
+                zos.write(buffer, 0, length);
+            }
+            zos.closeEntry();
+        }
+    }
+
+    private void addDirectoryToZip(ZipOutputStream zos, File folder, String baseName) throws IOException {
+        File[] files = folder.listFiles();
+        if (files == null) return;
+
+        for (File file : files) {
+            if (file.isDirectory()) {
+                addDirectoryToZip(zos, file, baseName + file.getName() + "/");
+            } else {
+                addFileToZip(zos, file, baseName + file.getName());
+            }
+        }
+    }
+
     /**
      * Ensure backup directories exist
      */
@@ -1074,78 +1134,135 @@ public class DatabaseBackupManager {
     /**
      * Export database and all tree photos to a single ZIP file for website generation
      * 
-     * @param backupPath Path or Uri of the backup .db file
+  //   * @param backupPath Path or Uri of the backup .db file
      * @return File object pointing to the generated website package ZIP in cache
      */
-    public File exportWebsiteZip(String backupPath) throws Exception {
-        File databaseFile = null;
-        File zipFile = new File(context.getCacheDir(), "TreeApp_Website_Export.zip");
-        if (zipFile.exists()) {
-            zipFile.delete();
-        }
+//    public File exportWebsiteZip(String backupPath) throws Exception {
+//        File databaseFile = null;
+//        File zipFile = new File(context.getCacheDir(), "TreeApp_Website_Export.zip");
+//        if (zipFile.exists()) {
+//            zipFile.delete();
+//        }
+//
+//        try {
+//            if (backupPath.startsWith("content://")) {
+//                databaseFile = new File(context.getCacheDir(), "temp_web_export.db");
+//                copyFromContentUri(Uri.parse(backupPath), databaseFile);
+//            } else {
+//                databaseFile = new File(backupPath);
+//            }
+//
+//            try (FileOutputStream fos = new FileOutputStream(zipFile);
+//                 ZipOutputStream zos = new ZipOutputStream(fos)) {
+//
+//                // 1. Add database file as "database.db"
+//                if (databaseFile.exists() && databaseFile.canRead()) {
+//                    addFileToZip(zos, databaseFile, "database.db");
+//                    Log.i(TAG, "Added database to website export ZIP");
+//                }
+//
+//                // 2. Add all tree images from Pictures/Trees
+//                File photosDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Trees");
+//                if (photosDir.exists() && photosDir.isDirectory()) {
+//                    File[] photos = photosDir.listFiles((dir, name) -> {
+//                        String lower = name.toLowerCase(Locale.ROOT);
+//                        return lower.endsWith(".jpg") || lower.endsWith(".jpeg") || lower.endsWith(".png");
+//                    });
+//
+//                    if (photos != null) {
+//                        for (File photo : photos) {
+//                            addFileToZip(zos, photo, "images/" + photo.getName());
+//                        }
+//                        Log.i(TAG, "Added " + photos.length + " photos to website export ZIP");
+//                    }
+//                }
+//
+//                zos.finish();
+//            }
+//
+//            return zipFile;
+//        } finally {
+//            if (backupPath.startsWith("content://") && databaseFile != null && databaseFile.exists()) {
+//                databaseFile.delete();
+//            }
+//        }
+//    }
+//
+//    private void addFileToZip(ZipOutputStream zos, File file, String zipEntryName) throws IOException {
+//        ZipEntry entry = new ZipEntry(zipEntryName);
+//        zos.putNextEntry(entry);
+//        try (FileInputStream fis = new FileInputStream(file)) {
+//            byte[] buffer = new byte[8192];
+//            int length;
+//            while ((length = fis.read(buffer)) > 0) {
+//                zos.write(buffer, 0, length);
+//            }
+//        }
+//        zos.closeEntry();
+//    }
+//
+//    private void addToZip(ZipOutputStream zos, String filename, String content) throws IOException {
+//        ZipEntry entry = new ZipEntry(filename);
+//        zos.putNextEntry(entry);
+//        zos.write(content.getBytes());
+//        zos.closeEntry();
+//    }
 
-        try {
-            if (backupPath.startsWith("content://")) {
-                databaseFile = new File(context.getCacheDir(), "temp_web_export.db");
-                copyFromContentUri(Uri.parse(backupPath), databaseFile);
-            } else {
-                databaseFile = new File(backupPath);
-            }
+//    public static File exportWebsiteZip(Context context) throws IOException {
+//        // Output file in external cache directory
+//        File exportZip = new File(context.getExternalCacheDir(), "TreeApp_Website_Export.zip");
+//        if (exportZip.exists()) {
+//            exportZip.delete();
+//        }
+//
+//        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(exportZip))) {
+//
+//            // 1. Pack SQLite Database
+//            File dbFile = context.getDatabasePath("database.db");
+//            if (dbFile.exists()) {
+//                addToZip(zos, dbFile, "database.db");
+//            }
+//
+//            // 2. Pack Tree Photos Directory
+//            File photosDir = new File(Environment.getExternalStoragePublicDirectory(
+//                    Environment.DIRECTORY_PICTURES), "Trees");
+//            if (photosDir.exists() && photosDir.isDirectory()) {
+//                addFolderToZip(zos, photosDir, "Pictures/Trees");
+//            }
+//        }
+//
+//        return exportZip;
+//    }
 
-            try (FileOutputStream fos = new FileOutputStream(zipFile);
-                 ZipOutputStream zos = new ZipOutputStream(fos)) {
-
-                // 1. Add database file as "database.db"
-                if (databaseFile.exists() && databaseFile.canRead()) {
-                    addFileToZip(zos, databaseFile, "database.db");
-                    Log.i(TAG, "Added database to website export ZIP");
-                }
-
-                // 2. Add all tree images from Pictures/Trees
-                File photosDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Trees");
-                if (photosDir.exists() && photosDir.isDirectory()) {
-                    File[] photos = photosDir.listFiles((dir, name) -> {
-                        String lower = name.toLowerCase(Locale.ROOT);
-                        return lower.endsWith(".jpg") || lower.endsWith(".jpeg") || lower.endsWith(".png");
-                    });
-
-                    if (photos != null) {
-                        for (File photo : photos) {
-                            addFileToZip(zos, photo, "images/" + photo.getName());
-                        }
-                        Log.i(TAG, "Added " + photos.length + " photos to website export ZIP");
-                    }
-                }
-
-                zos.finish();
-            }
-
-            return zipFile;
-        } finally {
-            if (backupPath.startsWith("content://") && databaseFile != null && databaseFile.exists()) {
-                databaseFile.delete();
-            }
-        }
-    }
-
-    private void addFileToZip(ZipOutputStream zos, File file, String zipEntryName) throws IOException {
-        ZipEntry entry = new ZipEntry(zipEntryName);
-        zos.putNextEntry(entry);
-        try (FileInputStream fis = new FileInputStream(file)) {
-            byte[] buffer = new byte[8192];
+    private static void addToZip(ZipOutputStream zos, File fileToZip, String entryName) throws IOException {
+        try (FileInputStream fis = new FileInputStream(fileToZip)) {
+            ZipEntry zipEntry = new ZipEntry(entryName);
+            zos.putNextEntry(zipEntry);
+            byte[] bytes = new byte[1024];
             int length;
-            while ((length = fis.read(buffer)) > 0) {
-                zos.write(buffer, 0, length);
+            while ((length = fis.read(bytes)) >= 0) {
+                zos.write(bytes, 0, length);
             }
+            zos.closeEntry();
         }
-        zos.closeEntry();
+    }
+    // Overloaded method to accept String file paths
+    private static void addToZip(ZipOutputStream zos, String filePathToZip, String entryName) throws IOException {
+        addToZip(zos, new File(filePathToZip), entryName);
     }
 
-    private void addToZip(ZipOutputStream zos, String filename, String content) throws IOException {
-        ZipEntry entry = new ZipEntry(filename);
-        zos.putNextEntry(entry);
-        zos.write(content.getBytes());
-        zos.closeEntry();
+
+    private static void addFolderToZip(ZipOutputStream zos, File folderToZip, String parentFolder) throws IOException {
+        File[] files = folderToZip.listFiles();
+        if (files == null) return;
+
+        for (File file : files) {
+            if (file.isDirectory()) {
+                addFolderToZip(zos, file, parentFolder + "/" + file.getName());
+            } else {
+                addToZip(zos, file, parentFolder + "/" + file.getName());
+            }
+        }
     }
 
     private String queryToCsv(SQLiteDatabase db, String query) {

@@ -7,6 +7,7 @@ import android.util.Log;
 import com.john.TreeApp.beans.Image;
 import com.john.TreeApp.beans.Note;
 import com.john.TreeApp.beans.Tree;
+import com.john.TreeApp.adapters.PhotoAdapter;
 import db.ImageDAO;
 import db.ImageDAOImpl;
 import db.NoteDAO;
@@ -91,10 +92,7 @@ public class CollectionExporter {
                     }
 
                     // Add image file to ZIP
-                    File imageFile = new File(
-                        new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Trees"),
-                        image.getImageUrlOrFileName()
-                    );
+                    File imageFile = PhotoAdapter.resolveImageFile(context, image.getImageUrlOrFileName());
 
                     if (imageFile.exists()) {
                         String zipEntryPath = "photos/" + (tree.getLabel() != null ? tree.getLabel() : "Tree_" + tree.getTreeId()) + "/" + image.getImageUrlOrFileName();

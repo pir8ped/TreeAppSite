@@ -30,10 +30,19 @@ public class BaseActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
 
     private boolean initialisationHasRun = false;
+    private static boolean photoMigrationTriggered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Run background migration for legacy photos on startup (safe, non-blocking)
+        if (!photoMigrationTriggered) {
+            photoMigrationTriggered = true;
+            new Thread(() -> {
+                com.john.TreeApp.utils.PhotoStorageManager.migratePrivatePhotosToPublic(getApplicationContext());
+            }).start();
+        }
 
         // Initialize the database creator
         DatabaseCreator.initialize(getApplicationContext());
@@ -181,14 +190,7 @@ public class BaseActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Already on Find Tree", Toast.LENGTH_SHORT).show();
                 }
-            } else if (id == R.id.nav_calibrate_gps) {
-                // Launch GPSCalibrationActivity to list reference points
-                if (!(getClass().equals(GPSCalibrationActivity.class))) {
-                    Intent intent = new Intent(this, GPSCalibrationActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, "Already on GPS Calibration", Toast.LENGTH_SHORT).show();
-                }
+
             }
             drawerLayout.closeDrawers();
             return true;

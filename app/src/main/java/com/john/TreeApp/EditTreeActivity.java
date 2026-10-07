@@ -1,8 +1,10 @@
 package com.john.TreeApp;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.location.Location;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +22,7 @@ import android.widget.FrameLayout;
 import android.app.AlertDialog;
 import android.view.Gravity;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -68,13 +71,23 @@ import db.NoteDAOImpl;
 import db.LocationDAO;
 import db.LocationDAOImpl;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import android.os.Build;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class EditTreeActivity extends BaseActivity implements LocationFragment.LocationListener {
 
     private static final String TAG = "EditTreeActivity";
     // Add result code for tree deletion
     public static final int RESULT_TREE_DELETED = 2;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private static final int REQUEST_CAMERA_PERMISSION = 2;
+
+    private ActivityResultLauncher<Uri> takePhotoLauncher;
 
     private String currentPhotoPath;
     private Uri photoURI;
@@ -128,7 +141,53 @@ public class EditTreeActivity extends BaseActivity implements LocationFragment.L
         super.onCreate(savedInstanceState);
         setActivityLayout(R.layout.activity_edit_tree);
 
-        // Initialize DAOs and services with writable database
+        // 1. Register modern photo capture callback
+        takePhotoLauncher = registerForActivityResult(
+                new ActivityResultContracts.TakePicture(),
+                success -> {
+                    if (Boolean.TRUE.equals(success) && currentPhotoPath != null) {
+                        File photoFile = new File(currentPhotoPath);
+
+                        if (photoFile.exists() && photoFile.length() > 0) {
+                            // Move to public Pictures/Trees and delete private copy (leaves only 1 copy)
+                            String savedFileName = movePhotoToPublicPictures(photoFile);
+
+                            if (savedFileName != null) {
+                                // Save to SQLite database
+                                java.util.Date utilDate = new Date();
+                                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                                imageDAO.addImage((long) treeId, sqlDate, savedFileName);
+
+                                // Refresh photo gallery in UI
+                                List<Image> updatedImages = imageDAO.getAllImages(treeId);
+                                photoAdapter.updatePhotos(updatedImages);
+
+                                // Auto-verify tree
+                                verifyTree();
+
+                                Toast.makeText(this, "Photo saved to Pictures/Trees", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(this, "Failed to save photo to Pictures/Trees", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(this, "Camera returned without saving photo", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // User cancelled — clean up empty 0-byte file
+                        if (currentPhotoPath != null) {
+                            File file = new File(currentPhotoPath);
+                            if (file.exists() && file.length() == 0) {
+                                file.delete();
+                            }
+                        }
+                    }
+                }
+        );
+
+        // 2. Migrate any existing private photos to public (leaves only 1 copy)
+        migratePrivatePhotosToPublic();
+
+        // 3. Initialize DAOs and services with writable database
         treeDAO = new TreeDAOImpl();
         treeService = new TreeService();
         imageDAO = new ImageDAOImpl();
@@ -142,7 +201,7 @@ public class EditTreeActivity extends BaseActivity implements LocationFragment.L
             return;
         }
 
-        // Set the action bar title with English name and label (if available)
+        // Set action bar title
         String title = "Edit Tree: " + tree.getEnglishName();
         if (tree.getLabel() != null && !tree.getLabel().isEmpty()) {
             title += " " + tree.getLabel();
@@ -155,6 +214,22 @@ public class EditTreeActivity extends BaseActivity implements LocationFragment.L
         // Load data into views
         populateTreeData();
     }
+
+    /**
+     * Moves a photo from private cache to the public Pictures/Trees directory,
+     * ensuring ONLY ONE copy exists on the device and it is immediately visible
+     * to the Files app, Round Sync, and Cloudflare.
+     *
+     * @return the resulting filename in public storage, or null if failed.
+     */
+    private String movePhotoToPublicPictures(File sourceFile) {
+        return com.john.TreeApp.utils.PhotoStorageManager.movePhotoToPublicPictures(this, sourceFile, true);
+    }
+
+    private void migratePrivatePhotosToPublic() {
+        new Thread(() -> com.john.TreeApp.utils.PhotoStorageManager.migratePrivatePhotosToPublic(getApplicationContext())).start();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -1146,36 +1221,36 @@ public class EditTreeActivity extends BaseActivity implements LocationFragment.L
 
     private void dispatchTakePictureIntent() {
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[] { Manifest.permission.CAMERA }, REQUEST_CAMERA_PERMISSION);
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
             return;
         }
 
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                Toast.makeText(this, "Error creating image file", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            Log.e(TAG, "Error creating image file", ex);
+            Toast.makeText(this, "Error creating image file", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                photoURI = FileProvider.getUriForFile(this,
-                        "com.john.TreeApp.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        if (photoFile != null) {
+            photoURI = FileProvider.getUriForFile(this,
+                    "com.john.TreeApp.fileprovider",
+                    photoFile);
+
+            try {
+                // Launch the camera non-deprecated way
+                takePhotoLauncher.launch(photoURI);
+            } catch (android.content.ActivityNotFoundException e) {
+                Toast.makeText(this, "No camera app found on this device", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private File createImageFile() throws IOException {
-        // Create an image file name using our agreed naming convention
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String imageFileName = "tree_" + treeId + "_" + timeStamp;
+        String imageFileName = "tree_" + treeId + "_" + timeStamp + "_";
 
         File storageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Trees");
         if (!storageDir.exists()) {
@@ -1184,13 +1259,15 @@ public class EditTreeActivity extends BaseActivity implements LocationFragment.L
 
         File image = File.createTempFile(
                 imageFileName, /* prefix */
-                ".jpg", /* suffix */
-                storageDir /* directory */
+                ".jpg",        /* suffix */
+                storageDir     /* directory */
         );
 
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -1206,29 +1283,12 @@ public class EditTreeActivity extends BaseActivity implements LocationFragment.L
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            // Save the image to the database
-            if (currentPhotoPath != null) {
-                // Get just the filename from the full path
-                String fileName = new File(currentPhotoPath).getName();
-                // Convert java.util.Date to java.sql.Date and int to long
-                java.util.Date utilDate = new Date();
-                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                imageDAO.addImage((long) treeId, sqlDate, fileName);
 
-                // Refresh the photos list
-                List<Image> updatedImages = imageDAO.getAllImages(treeId);
-                photoAdapter.updatePhotos(updatedImages);
 
-                // Auto-verify tree
-                verifyTree();
-
-                Toast.makeText(this, "Photo saved successfully", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     private void openMapViewWithTree() {

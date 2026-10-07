@@ -2,6 +2,7 @@ package com.john.TreeApp.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +41,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         this.noteDAO = new NoteDAOImpl();
     }
 
+
+    public static File resolveImageFile(Context context, String storedPathOrName) {
+        return com.john.TreeApp.utils.PhotoStorageManager.resolveImageFile(context, storedPathOrName);
+    }
+
     @Override
     public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -51,18 +57,19 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     public void onBindViewHolder(PhotoViewHolder holder, int position) {
         Image image = images.get(position);
         Context context = holder.itemView.getContext();
-        
-        // Get the image file from the app's private Pictures directory
-        File imageFile = new File(
-            new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Trees"),
-            image.getImageUrlOrFileName()
-        );
+
+        // Resolve image file with fallback
+        File imageFile = resolveImageFile(context, image.getImageUrlOrFileName());
+
+        Log.d("PhotoAdapter", "Target image: " + image.getImageUrlOrFileName() +
+                " -> Resolved: " + (imageFile != null ? imageFile.getAbsolutePath() : "null") +
+                " (exists=" + (imageFile != null && imageFile.exists()) + ")");
 
         // Load the image using Glide
         Glide.with(context)
-            .load(imageFile)
-            .centerCrop()
-            .into(holder.imageView);
+                .load(imageFile)
+                .centerCrop()
+                .into(holder.imageView);
 
         if (image.getDateTaken() != null) {
             holder.dateView.setText(dateFormat.format(image.getDateTaken()));
@@ -85,28 +92,24 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_full_image, null);
         ZoomableImageView fullImageView = dialogView.findViewById(R.id.full_image_view);
 
-        // Load full-size image with specific configuration
         Glide.with(context)
-            .load(imageFile)
-            .fitCenter()
-            .override(1000, 1000) // Set a reasonable size limit
-            .into(fullImageView);
+                .load(imageFile)
+                .fitCenter()
+                .override(1200, 1200)
+                .into(fullImageView);
 
         TextView captionView = dialogView.findViewById(R.id.caption_view);
-        
-        // Fetch and show caption if it exists
+
         Note captionNote = noteDAO.getNoteForImage(image.getImageId());
         if (captionNote != null && captionNote.getDescription() != null && !captionNote.getDescription().isEmpty()) {
             captionView.setText(captionNote.getDescription());
             captionView.setVisibility(View.VISIBLE);
         }
 
-        // Create and show the dialog
         AlertDialog dialog = new AlertDialog.Builder(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
-            .setView(dialogView)
-            .create();
+                .setView(dialogView)
+                .create();
 
-        // Handle custom buttons
         dialogView.findViewById(R.id.btn_close).setOnClickListener(v -> dialog.dismiss());
         dialogView.findViewById(R.id.btn_edit_caption).setOnClickListener(v -> {
             Note currentNote = noteDAO.getNoteForImage(image.getImageId());
@@ -114,36 +117,26 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         });
         dialogView.findViewById(R.id.btn_delete).setOnClickListener(v -> {
             new AlertDialog.Builder(context)
-                .setTitle("Delete Photo")
-                .setMessage("Are you sure you want to delete this photo?")
-                .setPositiveButton("Yes", (confirmDialog, which) -> {
-                    // Delete from database
-                    imageDAO.deleteImage(image.getImageId());
-                    
-                    // Delete the file
-                    if (imageFile.exists()) {
-                        if (imageFile.delete()) {
-                            // Remove from the list and notify adapter
-                            int position = images.indexOf(image);
-                            if (position != -1) {
-                                images.remove(position);
-                                notifyItemRemoved(position);
-                            }
-                            dialog.dismiss();
-                            Toast.makeText(context, "Photo deleted successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "Failed to delete photo file", Toast.LENGTH_SHORT).show();
+                    .setTitle("Delete Photo")
+                    .setMessage("Are you sure you want to delete this photo?")
+                    .setPositiveButton("Yes", (confirmDialog, which) -> {
+                        imageDAO.deleteImage(image.getImageId());
+                        if (imageFile != null && imageFile.exists()) {
+                            String deletedPath = imageFile.getAbsolutePath();
+                            imageFile.delete();
+                            MediaScannerConnection.scanFile(context, new String[]{ deletedPath }, null, null);
                         }
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
+                        int pos = images.indexOf(image);
+                        if (pos != -1) {
+                            images.remove(pos);
+                            notifyItemRemoved(pos);
+                        }
+                        dialog.dismiss();
+                        Toast.makeText(context, "Photo deleted successfully", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
-
-        // Add logging to debug the image loading
-        Log.d("PhotoAdapter", "Loading image from: " + imageFile.getAbsolutePath());
-        Log.d("PhotoAdapter", "File exists: " + imageFile.exists());
-        Log.d("PhotoAdapter", "File size: " + imageFile.length());
 
         dialog.show();
     }
@@ -178,13 +171,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
                     captionView.setVisibility(View.VISIBLE);
                 }
             }
-            
-            // Notify adapter to refresh the gallery view preview
+
             int position = images.indexOf(image);
             if (position != -1) {
                 notifyItemChanged(position);
             }
-            
             Toast.makeText(context, "Caption saved", Toast.LENGTH_SHORT).show();
         });
         builder.setNegativeButton("Cancel", null);
@@ -213,4 +204,4 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
             captionPreview = itemView.findViewById(R.id.photo_caption_preview);
         }
     }
-} 
+}

@@ -28,6 +28,9 @@ import java.util.Map;
 
 public class SiteGenerator {
 
+    // Add your Cloudflare R2 public base URL here (no trailing slash)
+    private static final String r2BaseUrl = "https://pub-2e449b7875ee4e21bd83ecfb008bd5cf.r2.dev";
+
     private static final float[] SPECIES_HUES = {
             0f, 30f, 60f, 120f, 180f, 200f, 240f, 270f, 300f, 330f,
             15f, 45f, 90f, 160f, 210f
@@ -52,32 +55,43 @@ public class SiteGenerator {
             File dbFile = null;
             File imagesSourceDir = null;
 
-            // Check if there is a ZIP file in data/
+            // Check if there is a ZIP file in data/ that contains a database
             File[] zipFiles = dataDir.exists() ? dataDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".zip")) : null;
             if (zipFiles != null && zipFiles.length > 0) {
-                File zipFile = zipFiles[0];
-                System.out.println("Found data archive: " + zipFile.getName());
-                if (tempDir.exists()) deleteDirectory(tempDir);
-                tempDir.mkdirs();
-                System.out.println("Extracting archive to " + tempDir.getAbsolutePath() + "...");
-                ZipUtils.unzip(zipFile, tempDir);
-
-                // Look for database inside unzipped files
-                File[] foundDb = tempDir.listFiles((dir, name) -> name.endsWith(".db"));
-                if (foundDb != null && foundDb.length > 0) {
-                    dbFile = foundDb[0];
+                for (File zipFile : zipFiles) {
+                    System.out.println("Checking data archive: " + zipFile.getName());
+                    if (tempDir.exists()) deleteDirectory(tempDir);
+                    tempDir.mkdirs();
+                    try {
+                        ZipUtils.unzip(zipFile, tempDir);
+                        File[] foundDb = tempDir.listFiles((dir, name) -> name.endsWith(".db"));
+                        if (foundDb != null && foundDb.length > 0) {
+                            dbFile = foundDb[0];
+                            File imgDir = new File(tempDir, "images");
+                            if (!imgDir.exists()) imgDir = new File(tempDir, "Trees");
+                            if (imgDir.exists()) imagesSourceDir = imgDir;
+                            System.out.println("Found database in archive: " + dbFile.getName());
+                            break;
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Could not extract " + zipFile.getName() + ": " + e.getMessage());
+                    }
                 }
-                File imgDir = new File(tempDir, "images");
-                if (!imgDir.exists()) imgDir = new File(tempDir, "Trees");
-                if (imgDir.exists()) imagesSourceDir = imgDir;
-            } else {
-                // Check if uncompressed database exists in data/ or root
-                if (new File(dataDir, "database.db").exists()) {
-                    dbFile = new File(dataDir, "database.db");
-                } else if (new File(dataDir, "mydatabase.db").exists()) {
-                    dbFile = new File(dataDir, "mydatabase.db");
-                } else if (new File("TreeDatabase.db").exists()) {
-                    dbFile = new File("TreeDatabase.db");
+            }
+
+            // Fallback: Check for ANY .db file in data/ or root directory if not found in a ZIP
+            if (dbFile == null) {
+                File[] dbFiles = dataDir.exists() ? dataDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".db")) : null;
+
+                if (dbFiles != null && dbFiles.length > 0) {
+                    dbFile = dbFiles[0]; // Uses the first .db file found in data/
+                } else {
+                    // Fallback search in root directory if data/ has no .db file
+                    File currentDir = new File(".");
+                    File[] rootDbFiles = currentDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".db"));
+                    if (rootDbFiles != null && rootDbFiles.length > 0) {
+                        dbFile = rootDbFiles[0];
+                    }
                 }
                 File imgDir = new File(dataDir, "images");
                 if (!imgDir.exists()) imgDir = new File(dataDir, "Trees");
@@ -85,8 +99,7 @@ public class SiteGenerator {
             }
 
             if (dbFile == null || !dbFile.exists()) {
-                System.err.println("Error: No SQLite database file found! Please provide a ZIP or .db file in the 'data/' folder.");
-                return;
+                throw new IllegalStateException("Error: No SQLite database file found! Please provide a valid ZIP or .db file in the 'data/' folder.");
             }
 
             System.out.println("Using database: " + dbFile.getAbsolutePath());
@@ -116,6 +129,7 @@ public class SiteGenerator {
             // 4. Generate Dashboard (index.html)
             System.out.println("Generating index.html...");
             Context indexContext = new Context();
+            indexContext.setVariable("r2BaseUrl", r2BaseUrl);
             indexContext.setVariable("collections", collections);
             indexContext.setVariable("stats", globalStats);
             indexContext.setVariable("treesJson", gson.toJson(allMapTrees));
@@ -135,6 +149,7 @@ public class SiteGenerator {
                 TreeStatistics colStats = dao.getCollectionStatistics(col.getId());
 
                 Context colContext = new Context();
+                colContext.setVariable("r2BaseUrl", r2BaseUrl);
                 colContext.setVariable("collection", col);
                 colContext.setVariable("collections", collections);
                 colContext.setVariable("trees", collectionTrees);
@@ -150,33 +165,60 @@ public class SiteGenerator {
             treesDir.mkdirs();
 
             List<Tree> allTrees = dao.getAllPlantedTrees();
+            System.out.println("Processing " + allTrees.size() + " tree detail pages...");
+
+            int generatedCount = 0;
             for (Tree tree : allTrees) {
-                Tree fullTree = dao.getTreeById(tree.getTreeId());
-                if (fullTree != null) {
-                    Context treeContext = new Context();
-                    treeContext.setVariable("tree", fullTree);
-                    treeContext.setVariable("collections", collections);
-                    treeContext.setVariable("pageTitle", fullTree.getDisplayName() + " (" + fullTree.getLabel() + ")");
+                int idToFetch = tree.getTreeId();
+                Tree fullTree = dao.getTreeById(idToFetch);
 
-                    // Mini map JSON
-                    if (fullTree.getLocation() != null) {
-                        TreeForMap miniMapTree = new TreeForMap();
-                        miniMapTree.setId(fullTree.getTreeId());
-                        miniMapTree.setLabel(fullTree.getLabel());
-                        miniMapTree.setEnglishName(fullTree.getEnglishName());
-                        miniMapTree.setLatinName(fullTree.getLatinName());
-                        miniMapTree.setVariety(fullTree.getVariety());
-                        miniMapTree.setLatitude(fullTree.getLocation().getLatitude());
-                        miniMapTree.setLongitude(fullTree.getLocation().getLongitude());
-                        String key = fullTree.getLatinName() != null ? fullTree.getLatinName().toUpperCase(Locale.ROOT) : "UNKNOWN";
-                        miniMapTree.setColorHex(speciesColorMap.getOrDefault(key, "#4CAF50"));
-                        treeContext.setVariable("treeJson", gson.toJson(Collections.singletonList(miniMapTree)));
-                    }
-
-                    renderTemplate(templateEngine, "tree_detail", treeContext, new File(treesDir, "tree_" + fullTree.getTreeId() + ".html"));
+                if (fullTree == null) {
+                    System.err.println("Warning: Could not fetch details for Tree ID: " + idToFetch);
+                    continue;
                 }
+
+                // 2. ADD THIS SANITIZATION BLOCK: Strip leading paths/prefixes from database filenames
+                if (fullTree.getImages() != null) {
+                    for (var img : fullTree.getImages()) {
+                        if (img.getImageUrlOrFileName() != null) {
+                            String raw = img.getImageUrlOrFileName();
+                            String cleanName = new File(raw).getName();
+                            img.setImageUrlOrFileName(cleanName);
+                        }
+                    }
+                }
+
+                Context treeContext = new Context();
+                treeContext.setVariable("tree", fullTree);
+                treeContext.setVariable("collections", collections);
+                treeContext.setVariable("pageTitle", fullTree.getDisplayName() + " (" + fullTree.getLabel() + ")");
+
+                // Set r2BaseUrl in context to satisfy template evaluation
+                treeContext.setVariable("r2BaseUrl", r2BaseUrl);
+
+                if (fullTree.getLocation() != null) {
+                    TreeForMap miniMapTree = new TreeForMap();
+                    miniMapTree.setId(fullTree.getTreeId());
+                    miniMapTree.setLabel(fullTree.getLabel());
+                    miniMapTree.setEnglishName(fullTree.getEnglishName());
+                    miniMapTree.setLatinName(fullTree.getLatinName());
+                    miniMapTree.setVariety(fullTree.getVariety());
+                    miniMapTree.setLatitude(fullTree.getLocation().getLatitude());
+                    miniMapTree.setLongitude(fullTree.getLocation().getLongitude());
+
+                    String key = fullTree.getLatinName() != null ? fullTree.getLatinName().toUpperCase(Locale.ROOT) : "UNKNOWN";
+                    miniMapTree.setColorHex(speciesColorMap.getOrDefault(key, "#4CAF50"));
+
+                    treeContext.setVariable("treeJson", gson.toJson(Collections.singletonList(miniMapTree)));
+                }
+
+                // Output file: dist/trees/tree_<ID>.html
+                File outputFile = new File(treesDir, "tree_" + fullTree.getTreeId() + ".html");
+                renderTemplate(templateEngine, "tree_detail", treeContext, outputFile);
+                generatedCount++;
             }
-            System.out.println("Generated " + allTrees.size() + " tree detail pages in /trees/");
+
+            System.out.println("Successfully generated " + generatedCount + " tree detail pages in /trees/");
 
             // 7. Generate Species Page (species.html)
             System.out.println("Generating species.html...");
@@ -186,15 +228,7 @@ public class SiteGenerator {
             speciesContext.setVariable("pageTitle", "Species Reference & Fruiting Calendar");
             renderTemplate(templateEngine, "species", speciesContext, new File(outputDir, "species.html"));
 
-            // 8. Copy Images
-            File outputImagesDir = new File(outputDir, "images");
-            outputImagesDir.mkdirs();
-            if (imagesSourceDir != null && imagesSourceDir.exists()) {
-                System.out.println("Copying photos from " + imagesSourceDir.getAbsolutePath() + " to " + outputImagesDir.getAbsolutePath() + "...");
-                ZipUtils.copyDirectory(imagesSourceDir, outputImagesDir);
-            }
-
-            // 9. Copy Static CSS/JS assets from resources
+            // 8. Copy Static CSS/JS assets from resources
             copyStaticAssets(outputDir);
 
             System.out.println("==================================================");
@@ -209,7 +243,8 @@ public class SiteGenerator {
 
     private static TemplateEngine createTemplateEngine() {
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
-        resolver.setPrefix("/templates/");
+        // Remove the leading slash (use "templates/" instead of "/templates/")
+        resolver.setPrefix("templates/");
         resolver.setSuffix(".html");
         resolver.setTemplateMode(TemplateMode.HTML);
         resolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
@@ -221,6 +256,12 @@ public class SiteGenerator {
     }
 
     private static void renderTemplate(TemplateEngine engine, String templateName, Context context, File outputFile) throws IOException {
+        // Ensure parent directories exist before creating the output stream
+        File parentDir = outputFile.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
         String html = engine.process(templateName, context);
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(outputFile), StandardCharsets.UTF_8)) {
             writer.write(html);

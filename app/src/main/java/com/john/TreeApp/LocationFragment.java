@@ -26,7 +26,6 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import gps.GPSAverager;
-import gps.GPSCalibrationManager;
 
 import java.util.Locale;
 
@@ -107,13 +106,6 @@ public class LocationFragment extends Fragment {
                 // Reset Start GPS button text/state
                 if (btnStartGps != null) {
                     btnStartGps.setText("Start GPS");
-                }
-                // Notify the activity of the averaged location
-                if (averagedLocation != null && listener != null) {
-                    listener.onLocationAveraged(averagedLocation);
-                    Toast.makeText(getContext(), "Location set", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Could not compute averaged location", Toast.LENGTH_LONG).show();
                 }
             } else {
                 Toast.makeText(getContext(), "Not enough accurate GPS readings", Toast.LENGTH_LONG).show();
@@ -211,14 +203,6 @@ public class LocationFragment extends Fragment {
         }
         averagedLocation = gpsAverager.getAveragedLocation();
 
-        // Apply GPS calibration offset if available
-        if (averagedLocation != null && getContext() != null) {
-            GPSCalibrationManager calibrationManager = GPSCalibrationManager.getInstance(getContext());
-            if (calibrationManager.isCalibrationValid()) {
-                averagedLocation = calibrationManager.applyOffset(averagedLocation);
-                Log.d(TAG, "Applied GPS calibration offset to averaged location");
-            }
-        }
     }
 
     public void setStartGPSButtonEnabled(boolean enabled) {

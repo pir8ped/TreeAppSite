@@ -11,7 +11,12 @@
     <!-- Camera permission -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="true" />
-
+    <!-- Add this queries block -->
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -61,24 +66,12 @@
             android:label="Export Map to PDF"
             android:exported="false" />
         <activity
-            android:name=".GPSCalibrationActivity"
-            android:label="GPS Calibration"
-            android:exported="false" />
-        <activity
-            android:name=".CalibrationRecordActivity"
-            android:label="Calibration Recording"
-            android:exported="false" />
-        <activity
             android:name=".BackupRestoreActivity"
             android:label="Backup/Restore"
             android:exported="false" />
-        <activity android:name=".SearchNotesActivity"
-            android:label="Search Notes"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+        <activity
+            android:name=".SearchNotesActivity"
+            android:label="Search Notes" />
         <activity android:name=".ReminderListActivity"
             android:label="Reminders"
             android:exported="false" />

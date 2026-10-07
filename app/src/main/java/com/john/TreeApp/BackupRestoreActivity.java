@@ -78,6 +78,28 @@ public class BackupRestoreActivity extends BaseActivity {
             checkPermissionsAndProceed();
         });
 
+        Button migratePhotosButton = findViewById(R.id.migrate_photos_button);
+        if (migratePhotosButton != null) {
+            migratePhotosButton.setOnClickListener(v -> {
+                AlertDialog progress = new AlertDialog.Builder(this)
+                        .setTitle("Consolidating Photos")
+                        .setMessage("Checking and migrating legacy photos to Pictures/Trees...")
+                        .setCancelable(false)
+                        .show();
+                new Thread(() -> {
+                    int count = com.john.TreeApp.utils.PhotoStorageManager.migratePrivatePhotosToPublic(getApplicationContext());
+                    runOnUiThread(() -> {
+                        progress.dismiss();
+                        if (count > 0) {
+                            Toast.makeText(this, "Successfully migrated " + count + " photos to Pictures/Trees", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(this, "All photos are already in public Pictures/Trees", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }).start();
+            });
+        }
+
         backupListView.setOnItemClickListener((parent, view, position, id) -> {
             if (position < backupPaths.size()) {
                 String backupPath = backupPaths.get(position);
@@ -232,7 +254,7 @@ public class BackupRestoreActivity extends BaseActivity {
         String stats = backupManager.getBackupStats(backupPath);
         String[] options = {
                 "Restore Database",
-                "Export for Website (DB + Photos ZIP)",
+                "Export for website (db)",
                 "Export for PC (CSVs ZIP)",
                 "Share .db File"
         };
@@ -261,35 +283,27 @@ public class BackupRestoreActivity extends BaseActivity {
     }
 
     private void exportAndShareWebsiteZip(String backupPath) {
-        AlertDialog progressDialog = new AlertDialog.Builder(this)
-                .setTitle("Generating Website Export")
-                .setMessage("Packaging database and photos for the website...")
-                .setCancelable(false)
-                .show();
-
-        new Thread(() -> {
-            try {
-                File zipFile = backupManager.exportWebsiteZip(backupPath);
-                Uri contentUri = FileProvider.getUriForFile(this,
-                        getPackageName() + ".fileprovider", zipFile);
-
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("application/zip");
-                shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
-                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                runOnUiThread(() -> {
-                    progressDialog.dismiss();
-                    startActivity(Intent.createChooser(shareIntent, "Save or Share Website Package to..."));
-                });
-            } catch (Exception e) {
-                Log.e(TAG, "Error exporting website ZIP", e);
-                runOnUiThread(() -> {
-                    progressDialog.dismiss();
-                    Toast.makeText(this, "Failed to export website data: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                });
+        try {
+            File dbFile = backupManager.getBackupFileForSharing(backupPath);
+            if (dbFile == null || !dbFile.exists()) {
+                Toast.makeText(this, "Database file not found", Toast.LENGTH_SHORT).show();
+                return;
             }
-        }).start();
+
+            Uri contentUri = FileProvider.getUriForFile(this,
+                    getPackageName() + ".fileprovider", dbFile);
+
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("application/octet-stream");
+            shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "trees.db");
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            startActivity(Intent.createChooser(shareIntent, "Export Database for Website"));
+        } catch (Exception e) {
+            Log.e(TAG, "Error exporting database", e);
+            Toast.makeText(this, "Failed to export database: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void shareBackup(String backupPath) {

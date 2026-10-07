@@ -44,8 +44,5 @@
         android:id="@+id/SearchNotesActivity"
         android:icon="@drawable/ic_search"
         android:title="Search Notes" />
-    <item
-        android:id="@+id/nav_calibrate_gps"
-        android:icon="@android:drawable/ic_menu_mylocation"
-        android:title="Calibrate GPS" />
+
 </menu>

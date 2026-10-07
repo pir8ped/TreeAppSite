@@ -46,7 +46,40 @@ dependencies {
     implementation 'androidx.emoji2:emoji2:1.3.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 
+    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
+
+    // Thymeleaf relies on SLF4J for logging
+    implementation 'org.slf4j:slf4j-simple:2.0.12'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+
+android {
+    sourceSets {
+        main {
+            // Include website-generator as an additional Java source directory
+            java.srcDirs += '../website-generator/src/main/java'
+        }
+    }
+}
+
+tasks.register('generateSite', JavaExec) {
+    group = "documentation"
+    description = "Generates static HTML files"
+
+    dependsOn 'compileDebugJavaWithJavac'
+
+    workingDir = file("${rootDir}/website-generator")
+
+    classpath = files(
+            tasks.named('compileDebugJavaWithJavac').get().destinationDir,
+            file("${rootDir}/website-generator/src/main/resources"), // Adds resources to ClassLoader
+            configurations.named('debugRuntimeClasspath')
+    )
+
+    mainClass = 'com.tree.SiteGenerator'
 }
